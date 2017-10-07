@@ -4,28 +4,29 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.communicate.controller.MainController;
-
 import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
+import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
-
+@ComponentScan({"com.communicate.configuration","com.communicate.controller"})
 @Configuration 
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.communicate.controller"}) 
+
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-	
+	private static final Logger logger = Logger.getLogger(WebMvcConfig.class);
 	private static final Charset UTF8 = Charset.forName("UTF-8");
 	
 	@Bean
@@ -33,14 +34,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		return new BeanNameUrlHandlerMapping();
 	}
 	
+
+
+
 	@Bean
-	public MainController  mainController() {
-		return new MainController();
-	}
-
-
-	@Bean(name = "viewResolver")
-	public InternalResourceViewResolver getViewResolver() {
+	public InternalResourceViewResolver  getViewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setPrefix("/WEB-INF/views");
 		viewResolver.setSuffix(".jsp");
@@ -65,6 +63,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		addResourceLocations("/WEB-INF/resources/img/").setCachePeriod(31556926);
 		registry.addResourceHandler("/js/**").
 		addResourceLocations("/WEB-INF/resources/theme1/js/").setCachePeriod(31556926);
+		registry.addResourceHandler("/webjars/**").
+		addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 	
 	// Equivalent for <mvc:default-servlet-handler/> tag
