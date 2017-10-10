@@ -13,10 +13,20 @@ public class User {
 	@Id @GeneratedValue
 	@Column
 	private int id;
+	
+	@Column
 	private String username;
+	
+	@Column
 	private String email;
+	
+	@Column
 	private Address addres;
+	
+	@Column
 	private int mobileNumber;
+	
+	@Column
 	private Gender gender;
 	
 	public int getId() {

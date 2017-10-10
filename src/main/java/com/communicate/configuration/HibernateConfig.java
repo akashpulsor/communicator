@@ -35,6 +35,12 @@ public class HibernateConfig {
 
 	private @Value("${jdbc.password}") 
 	String password;
+	
+	private @Value("${jdbc.maximum_pool_size}")
+	int maxPool;
+	
+	private @Value("${jdbc.minimum_pool_size}")
+	int minPool;
 
 	private @Value("${hibernate.hbm2ddl.auto}")
 	String hbm2ddl;
@@ -50,6 +56,8 @@ public class HibernateConfig {
 		ds.setJdbcUrl(jdbcUrl);
 		ds.setUser(userName);
 		ds.setPassword(password);
+		ds.setMaxPoolSize(maxPool);
+		ds.setMaxPoolSize(minPool);
 		return ds;
 	}
 
