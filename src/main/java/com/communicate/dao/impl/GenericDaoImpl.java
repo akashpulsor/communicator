@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.communicate.dao.GenericDao;
 import com.communicate.model.User;
 
-public class GenericDaoImpl<T>  extends JpaDaoSupport implements GenericDao<T> {
+public class GenericDaoImpl<T>  extends HibernateDaoSupport implements GenericDao<T> {
 
+	@PersistenceContext
+	EntityManager entityManager;
 	private Class<T> type;
 	
 	
@@ -39,10 +41,10 @@ public class GenericDaoImpl<T>  extends JpaDaoSupport implements GenericDao<T> {
 	@Transactional(readOnly=true)
 	public List<T> getall() {
 		// TODO Auto-generated method stub
-	/*	return entityManager.createQuery(
+		return entityManager.createQuery(
 				"select o from " + type.getName() + "o"
-				).getResultList();*/
-		return null;
+				).getResultList();
+		
 	}
 
 	@Override

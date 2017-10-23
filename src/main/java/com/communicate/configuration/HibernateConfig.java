@@ -21,6 +21,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableTransactionManagement
+
 public class HibernateConfig {
 
 	private static final Logger logger = Logger.getLogger(HibernateConfig.class);

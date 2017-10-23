@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 //
 import com.communicate.controller.MainController;
+import com.communicate.service.UserManagerImplementation;
  
 @Configuration
 @ComponentScan({"com.communicate.configuration","com.communicate.controller"})
@@ -21,6 +22,11 @@ public class AppConfig {
 	@Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
+    }
+	
+	@Bean
+    public UserManagerImplementation getUserManager () {
+        return new UserManagerImplementation();
     }
 	
  

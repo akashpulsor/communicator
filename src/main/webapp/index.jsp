@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ taglib prefix="form" 
+uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" class="no-js">
 <!-- Begin Head -->
 <head>
@@ -117,22 +119,25 @@
 				style="background: url('img/1920x1080/07.jpg');">
 				<div class="container g-text-center--xs g-ver-center--xs">
 					<div class="g-margin-b-30--xs" >
-						<form class="s-swiper__arrow-v1--left">
+					
+					<form:form action = "register.html" 
+					class="s-swiper__arrow-v1--left" 
+					commandName="User" method="post">
 				<div class="row g-margin-b-40--xs">
 					<div class="col-sm-6 g-margin-b-20--xs g-margin-b-0--md">
 						<div class="g-margin-b-20--xs">
-							<input type="text"
+							<form:input type="text"
 								class="form-control s-form-v2__input g-radius--50"
-								placeholder="* Name">
+								placeholder="* Name"/>
 						</div>
 						<div class="g-margin-b-20--xs">
-							<input type="email"
+							<form:input type="email"
 								class="form-control s-form-v2__input g-radius--50"
-								placeholder="* Email">
+								placeholder="* Email"/>
 						</div>
-						<input type="text"
+						<form:input type="text"
 							class="form-control s-form-v2__input g-radius--50"
-							placeholder="* Phone">
+							placeholder="* Phone"/>
 							
 							<div class="g-margin-b-20--xs">
 							
@@ -141,10 +146,10 @@
 					
 				</div>
 				<div class="g-text-center--xs">
-					<button type="submit"
-						class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs">Submit</button>
+					<input type="submit"
+						class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs" value ="Submit" />
 				</div>
-			</form>
+			</form:form>
 						
 					</div>
 					

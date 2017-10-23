@@ -6,10 +6,13 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
 import javax.security.sasl.AuthenticationException;
 
+import org.springframework.stereotype.Repository;
+
 import com.communicate.dao.GenericDao;
 import com.communicate.dao.UserDao;
 import com.communicate.model.User;
 
+@Repository("UserDao")
 public class UserDaoImpl extends GenericDaoImpl<User>  implements UserDao {
 
 
@@ -24,7 +27,7 @@ public class UserDaoImpl extends GenericDaoImpl<User>  implements UserDao {
 		// TODO Auto-generated method stub
 		List<User> results = null;
 		Query query = entityManager.createQuery(
-		"from Person as p where p.username = :username and p.password = :password"
+		"from User as p where p.username = :username and p.password = :password"
 		);
 		query.setParameter("username", UserName);
 		query.setParameter("password", Passowrd);
