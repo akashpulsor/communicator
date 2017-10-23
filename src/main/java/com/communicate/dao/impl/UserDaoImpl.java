@@ -19,7 +19,6 @@ public class UserDaoImpl extends GenericDaoImpl<User>  implements UserDao {
 
 	public UserDaoImpl() {
 		super(User.class);
-	
 	}
 
 	@Override

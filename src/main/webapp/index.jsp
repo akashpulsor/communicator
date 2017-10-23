@@ -1,5 +1,6 @@
-<%@ taglib prefix="form" 
-uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" class="no-js">
 <!-- Begin Head -->
@@ -119,37 +120,45 @@ uri="http://www.springframework.org/tags/form" %>
 				style="background: url('img/1920x1080/07.jpg');">
 				<div class="container g-text-center--xs g-ver-center--xs">
 					<div class="g-margin-b-30--xs" >
-					
-					<form:form action = "register.html" 
-					class="s-swiper__arrow-v1--left" 
+					<form:form action = "register.html" class="s-swiper__arrow-v1--left" 
 					commandName="User" method="post">
-				<div class="row g-margin-b-40--xs">
-					<div class="col-sm-6 g-margin-b-20--xs g-margin-b-0--md">
-						<div class="g-margin-b-20--xs">
-							<form:input type="text"
-								class="form-control s-form-v2__input g-radius--50"
-								placeholder="* Name"/>
-						</div>
-						<div class="g-margin-b-20--xs">
-							<form:input type="email"
-								class="form-control s-form-v2__input g-radius--50"
-								placeholder="* Email"/>
-						</div>
-						<form:input type="text"
-							class="form-control s-form-v2__input g-radius--50"
-							placeholder="* Phone"/>
+					<div class="row g-margin-b-40--xs">
+						<div class="col-sm-6 g-margin-b-20--xs g-margin-b-0--md">
+							<spring:bind path = "name">
+								<div class="${status.error ? ' has-error' : 'g-margin-b-20--xs'}">
+									<label for="Name">Name</label>
+									<form:input path="name" 
+									type="text" class="form-control s-form-v2__input g-radius--50"
+									id="Name" placeholder="* Name" />
+								</div>
+							</spring:bind>
 							
-							<div class="g-margin-b-20--xs">
+							<spring:bind path = "phone">
+								<div class="${status.error ? ' has-error' : 'g-margin-b-20--xs'}">
+									<label for="phone">Phone</label>
+									<form:input path="Phone" 
+									type="text" class="form-control s-form-v2__input g-radius--50"
+									id="Name" placeholder="* Phone" />
+								</div>
+							</spring:bind>
+
+							<spring:bind path = "email">
+								<div class="${status.error ? ' has-error' : 'g-margin-b-20--xs'}">
+									<label for="email">Email</label>
+									<form:input path="email" 
+									type="text" class="form-control s-form-v2__input g-radius--50"
+									id="Name" placeholder="* Email" />
+								</div>
+							</spring:bind>
 							
-						</div>
+							
+						</div>	
 					</div>
-					
-				</div>
-				<div class="g-text-center--xs">
-					<input type="submit"
-						class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs" value ="Submit" />
-				</div>
-			</form:form>
+					<div class="g-text-center--xs">
+						<button type="submit" class="text-uppercase s-btn s-btn--md s-btn--primary-bg 
+						g-radius--50 g-padding-x-80--xs">Login</button>
+					</div>
+					</form:form>
 						
 					</div>
 					
