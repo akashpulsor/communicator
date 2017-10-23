@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 @Controller
-@RequestMapping(value = "/app")
+@RequestMapping(value = "/web")
 public class MainController extends AbstractController {
 
 
