@@ -5,8 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
+import com.communicate.dao.impl.UserDaoImpl;
+import com.communicate.service.RegistrationForm;
 import com.communicate.service.UserManagerImplementation;
  
 @Configuration
@@ -24,6 +27,16 @@ public class AppConfig {
 	@Bean
     public UserManagerImplementation getUserManager () {
         return new UserManagerImplementation();
+    }
+	
+	@Bean("registrationForm")
+    public RegistrationForm getRegistrationForm () {
+        return new RegistrationForm();
+    }
+	
+	@Bean
+    public UserDaoImpl getUserDao () {
+        return new UserDaoImpl();
     }
 	
  

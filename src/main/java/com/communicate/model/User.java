@@ -43,7 +43,7 @@ public class User implements Serializable {
 	private String email;
 	
 	@Column
-	private int mobileNumber;
+	private String mobileNumber;
 	
 	@Column
 	private Gender gender;
@@ -130,14 +130,14 @@ public class User implements Serializable {
 	/**
 	 * @return the mobileNumber
 	 */
-	public int getMobileNumber() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
 
 	/**
 	 * @param mobileNumber the mobileNumber to set
 	 */
-	public void setMobileNumber(int mobileNumber) {
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
