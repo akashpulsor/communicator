@@ -81,7 +81,11 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-
+		<dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>2.0.0.RELEASE</version>
+    	</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -89,11 +93,11 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-<dependency>
-<groupId>javax.validation</groupId>
-<artifactId>validation-api</artifactId>
-<version>2.0.0.Final</version>
-</dependency>
+		<dependency>
+		<groupId>javax.validation</groupId>
+		<artifactId>validation-api</artifactId>
+		<version>2.0.0.Final</version>
+		</dependency>
 		<!-- Hibernate -->
 		<!-- <dependency> <groupId>javax.validation</groupId> <artifactId>validation-api</artifactId> 
 			<version>1.0.0.GA</version> </dependency> -->
@@ -252,6 +256,14 @@
 				<updatePolicy>daily</updatePolicy>
 			</snapshots>
 		</repository>
+		<repository>
+        <id>spring-libs-release</id>
+        <name>Spring Releases</name>
+        <url>https://repo.spring.io/libs-release</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
 		<!-- <repository> <id>maven_apache</id> <name>maven_apache</name> <url>http://maven.apache.org</url> 
 			<snapshots> <enabled>true</enabled> <updatePolicy>daily</updatePolicy> </snapshots> 
 			</repository> -->

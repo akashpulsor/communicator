@@ -24,20 +24,14 @@ public class AppConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 	
-	@Bean
-    public UserManagerImplementation getUserManager () {
-        return new UserManagerImplementation();
-    }
+	
 	
 	@Bean("registrationForm")
     public RegistrationForm getRegistrationForm () {
         return new RegistrationForm();
     }
 	
-	@Bean
-    public UserDaoImpl getUserDao () {
-        return new UserDaoImpl();
-    }
+	
 	
  
 }

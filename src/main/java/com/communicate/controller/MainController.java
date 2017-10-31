@@ -22,46 +22,35 @@ import com.communicate.service.UserManagerImplementation;
 @RequestMapping(value = "/web")
 public class MainController {
 	private static final Logger logger = Logger.getLogger(MainController.class);
-	@Autowired
-	UserManagerImplementation userManager;
 	
+	
+
 	@RequestMapping(value = "/home.html", method = RequestMethod.GET)
-    public ModelAndView showForm() {
-        return new ModelAndView("/home", "registrationForm", new RegistrationForm());
-    }
-	
-	
+	public ModelAndView showForm() {
+		return new ModelAndView("/home", "registrationForm", new RegistrationForm());
+	}
+
 	@RequestMapping(value = "/register.html", method = RequestMethod.POST)
-	protected String register( @Valid @ModelAttribute("registrationForm") RegistrationForm regform,
-			BindingResult result,
-			Model model)throws Exception {
-		
+	public String register(@Valid @ModelAttribute("registrationForm") RegistrationForm regform, BindingResult result,
+			Model model) throws Exception {
+
 		logger.info("Regitration for data" + regform.toString());
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			logger.error("not able to create user " + result.getAllErrors());
-			return "/error";	
+			return "/error";
 		}
-		
-		
-		
+
 		logger.info("Recieved registration form " + regform.getName());
-		User user = userManager.createUser(regform) ;
+		UserManagerImplementation userManager = new UserManagerImplementation();
+		User user = userManager.createUser(regform);
 		model.addAttribute("user", user);
 		return "/dashboard";
 	}
-	
-	/**
-	    * Rest web service
-	    */
-	    @RequestMapping(value = "/home", method = RequestMethod.GET)
-	    public @ResponseBody String getUsersRest() {
-	        return "AKASH";
-	    }
-	    
-	    
 
-
-	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public @ResponseBody String getUsersRest() {
+		return "AKASH";
+	}
 
 }

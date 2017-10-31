@@ -1,17 +1,18 @@
 package com.communicate.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
-public interface GenericDao<T> {
-	
-	public T  get ( Long id ) ;
-	
-	public List<T>  getall (  ) ;
-	
-	public void save( T t );
 
-	public void delete ( T t );
+@Repository
+public interface GenericDao<T,ID extends Serializable>
+extends CrudRepository<T, ID>, PagingAndSortingRepository<T, ID>{
+	
+	
 
 }
