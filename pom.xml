@@ -14,6 +14,7 @@
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<hibernate.version>5.0.2.Final</hibernate.version>
 		<hibernate.version.validator>6.0.2.Final</hibernate.version.validator>
+		<springboot.version>1.5.8.RELEASE</springboot.version>
 	</properties>
 
 	<!-- UI RESOURCES -->
@@ -50,12 +51,12 @@
 
 
 		<!-- Spring -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
 			<exclusions>
-				<!-- Exclude Commons Logging in favor of SLF4j -->
+				Exclude Commons Logging in favor of SLF4j
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
@@ -86,7 +87,31 @@
         <artifactId>spring-data-jpa</artifactId>
         <version>2.0.0.RELEASE</version>
     	</dependency>
+    	
+ -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	        <version>${springboot.version}</version>
+	    </dependency>
+		
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
 
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-test</artifactId>
+    		<version>${springboot.version}</version>
+    		<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -278,6 +303,10 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 

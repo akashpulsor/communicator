@@ -30,22 +30,4 @@ public class CommunicatorWebAppInitializer extends AbstractAnnotationConfigDispa
 		return new String[]{"/"};
 	}
 
-/*	@Override
-	  public void onStartup(ServletContext servletCxt) {
-
-	    // Load Spring web application configuration
-	    AnnotationConfigWebApplicationContext cxt = new AnnotationConfigWebApplicationContext();
-	    cxt.register(AppConfig.class);
-	    cxt.refresh();
-
-	    // Create DispatcherServlet
-	    DispatcherServlet servlet = new DispatcherServlet(cxt);
-
-	    // Register and map the Servlet
-	    ServletRegistration.Dynamic registration = servletCxt.addServlet("app", servlet);
-	    registration.setLoadOnStartup(1);
-	    registration.addMapping("/app/*");
-	  }*/
-
-
 }

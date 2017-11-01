@@ -7,7 +7,11 @@ import javax.persistence.EntityManagerFactory;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -15,42 +19,44 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-@Configuration
-@EnableTransactionManagement
-@EnableJpaRepositories("basePackages = com.communicate.dao")
+
+@Component
 public class HibernateConfig {
 
 	private static final Logger logger = Logger.getLogger(HibernateConfig.class);
-	private @Value("${jdbc.driverClassName}") 
+	private @Value("${spring.datasource.driver-class-name}") 
 	String jdbcDriver;
 
-	private @Value("${jdbc.url}") 
+	private @Value("${spring.datasource.url}") 
 	String jdbcUrl;
 
-	private @Value("${jdbc.username}") 
+	private @Value("${spring.datasource.username}") 
 	String userName;
 
-	private @Value("${jdbc.password}") 
+	private @Value("${spring.datasource.password}") 
 	String password;
 	
-	private @Value("${jdbc.maximum_pool_size}")
+	private @Value("${spring.datasource.maximum_pool_size}")
 	int maxPool;
 	
-	private @Value("${jdbc.minimum_pool_size}")
+	private @Value("${spring.datasource.minimum_pool_size}")
 	int minPool;
 
-	private @Value("${hibernate.hbm2ddl.auto}")
+	private @Value("${spring.jpa.properties.hibernate.hbm2ddl.auto}")
 	String hbm2ddl;
 
-	private @Value("${hibernate.dialect}")
+	private @Value("${spring.jpa.properties.hibernate.dialect}")
 	String hbmDialect;
 
+	
 	@Bean
+	@ConfigurationProperties("spring.datasource")
 	public ComboPooledDataSource getDataSource() throws PropertyVetoException
 	{
 		ComboPooledDataSource ds = new ComboPooledDataSource(); 
@@ -66,11 +72,14 @@ public class HibernateConfig {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws PropertyVetoException {
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		vendorAdapter.setGenerateDdl(true);
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(getDataSource());
-		em.setPackagesToScan(new String[] { "com.communicate.model" });
+		em.setPackagesToScan("com.communicate.model");
+		
 
-		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
 

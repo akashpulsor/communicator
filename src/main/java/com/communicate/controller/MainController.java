@@ -3,6 +3,7 @@ package com.communicate.controller;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,8 @@ import com.communicate.service.UserManagerImplementation;
 public class MainController {
 	private static final Logger logger = Logger.getLogger(MainController.class);
 	
-	
+	@Autowired
+	UserManagerImplementation userManager;
 
 	@RequestMapping(value = "/home.html", method = RequestMethod.GET)
 	public ModelAndView showForm() {
@@ -42,7 +44,7 @@ public class MainController {
 		}
 
 		logger.info("Recieved registration form " + regform.getName());
-		UserManagerImplementation userManager = new UserManagerImplementation();
+		Assert.assertNotNull("User manager Implementation is null", userManager);
 		User user = userManager.createUser(regform);
 		model.addAttribute("user", user);
 		return "/dashboard";
