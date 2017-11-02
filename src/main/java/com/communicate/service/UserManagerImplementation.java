@@ -23,8 +23,13 @@ public class UserManagerImplementation implements UserManager{
 	public User createUser(RegistrationForm regForm) throws Exception {
 		User user = new User();
 		user.setEmail(regForm.getEmail());
+		user.setName(regForm.getName());
+		user.setPassword(regForm.getPassword());
+		user.setMobileNumber(regForm.getMobileNumber());
 		userDao.save(user);
 		// TODO Auto-generated method stub
-		return null;
+		return user;
 	}
+	
+	
 }
