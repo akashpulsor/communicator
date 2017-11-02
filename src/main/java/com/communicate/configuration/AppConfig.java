@@ -17,7 +17,8 @@ import com.communicate.service.RegistrationForm;
 
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 @EnableAutoConfiguration
-@SpringBootApplication(scanBasePackages="com.communicate.configuration,com.communicate.controller,com.communicate.dao,com.communicate.service",exclude = { DataSourceAutoConfiguration.class })
+@SpringBootApplication(scanBasePackages="com.communicate.configuration,com.communicate.controller,"
+		+ "com.communicate.dao,com.communicate.service")
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("com.communicate.dao")
 @EntityScan({"com.communicate.model"})
@@ -32,10 +33,7 @@ public class AppConfig {
 	
 	
 	
-	@Bean("registrationForm")
-    public RegistrationForm getRegistrationForm () {
-        return new RegistrationForm();
-    }
+
 	
 	
 	

@@ -12,13 +12,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.communicate.model.Gender;
+import com.communicate.model.User;
 
 
 @Service
-public class RegistrationForm {
+public class RegistrationForm extends User {
 	
 	
-    @NotNull(message = "Name cannot be null and smaller than 6 characters")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
+	
+
+	@NotNull(message = "Name cannot be null and smaller than 6 characters")
     @Size(min=6, max=30)
 	private String password;
 	

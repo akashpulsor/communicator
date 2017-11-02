@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.app.web</groupId>
 	<artifactId>communicate</artifactId>
@@ -14,6 +14,7 @@
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<hibernate.version>5.0.2.Final</hibernate.version>
 		<hibernate.version.validator>6.0.2.Final</hibernate.version.validator>
+		<!-- <springboot.version>1.5.9.BUILD-SNAPSHOT</springboot.version> -->
 		<springboot.version>1.5.8.RELEASE</springboot.version>
 	</properties>
 
@@ -42,12 +43,12 @@
 			<version>3.0.0</version>
 		</dependency>
 
-
+<!-- 
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>afterdark</artifactId>
 			<version>1.0.10</version>
-		</dependency>
+		</dependency> -->
 
 
 		<!-- Spring -->
@@ -104,6 +105,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${springboot.version}</version>
+            <exclusions>
+        <exclusion>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <groupId>org.hibernate</groupId>
+        </exclusion>
+    </exclusions>
         </dependency>
 
 		<dependency>
@@ -128,11 +135,11 @@
 			<version>1.0.0.GA</version> </dependency> -->
 
 
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -252,7 +259,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -292,6 +298,15 @@
 		<!-- <repository> <id>maven_apache</id> <name>maven_apache</name> <url>http://maven.apache.org</url> 
 			<snapshots> <enabled>true</enabled> <updatePolicy>daily</updatePolicy> </snapshots> 
 			</repository> -->
+			   <repository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </repository>
 	</repositories>
 	<build>
 		<finalName>communicate</finalName>
@@ -319,4 +334,15 @@
 			</resource>
 		</resources>
 	</build>
+	
+	<pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

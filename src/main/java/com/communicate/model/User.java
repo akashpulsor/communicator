@@ -20,15 +20,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USER")
-public class User implements Serializable {
-
-	@Id @GeneratedValue(strategy=GenerationType.AUTO
-)		
-	@Column
-	private int id;
+public class User extends AbstractEntity implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	
-	
+   //TODO add asserts	
 	@OneToOne
 	@JoinColumn(name = "id")
 	private Address address;
@@ -57,19 +53,6 @@ public class User implements Serializable {
 	@Column
 	private Date joinDate;
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the address

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.communicate.configuration.AppConfig;
 import com.communicate.model.User;
 import com.communicate.service.RegistrationForm;
 import com.communicate.service.UserManagerImplementation;
