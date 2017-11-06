@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +21,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.joda.time.DateTime;
+
+import com.communicate.utils.DateConveter;
+import com.communicate.utils.GenderConverter;
 
 @Entity
 @Table(name="USER")
@@ -29,31 +41,44 @@ public class User extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id")
 	private Address address;
 	
+	@NotNull(message = "Name cannot be null and smaller than 6 characters")
+    @Size(min=6, max=30)
 	@Column
 	private String password;
 	
+	@NotNull
+    @Size(min=5, max=30)
 	@Column
 	private String name;
-		
+	
+	@Email(message = "Email should be valid")
 	@Column
 	private String email;
 	
+	
+	@NotNull
+    @Size(min=10, max=10)
 	@Column
 	private String mobileNumber;
 	
-	@Column
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	
 	@Column
 	private String country;
 	
 	@Column
-	private Date birthDate;
+	private Long birthDate;
 	
 	@Column
-	private Date joinDate;
+	private Long joinDate = new DateTime().getMillis();
+	
+	@Enumerated(EnumType.STRING)
+	private Gender sexualInterest;
 
 
+	//@OneToMany(mappedBy="User", cascade=CascadeType.ALL)
+	//private List<Media> media;
 	/**
 	 * @return the address
 	 */
@@ -155,29 +180,37 @@ public class User extends AbstractEntity implements Serializable {
 	/**
 	 * @return the birthDate
 	 */
-	public Date getBirthDate() {
+	public Long getBirthDate() {
 		return birthDate;
 	}
 
 	/**
 	 * @param birthDate the birthDate to set
 	 */
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(Long birthDate) {
 		this.birthDate = birthDate;
 	}
 
 	/**
 	 * @return the joinDate
 	 */
-	public Date getJoinDate() {
+	public Long getJoinDate() {
 		return joinDate;
 	}
 
 	/**
 	 * @param joinDate the joinDate to set
 	 */
-	public void setJoinDate(Date joinDate) {
+	public void setJoinDate(Long joinDate) {
 		this.joinDate = joinDate;
+	}
+
+	public Gender getSexualInterest() {
+		return sexualInterest;
+	}
+
+	public void setSexualInterest(Gender sexualInterest) {
+		this.sexualInterest = sexualInterest;
 	}
 	
 	

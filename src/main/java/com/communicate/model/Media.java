@@ -1,5 +1,8 @@
 package com.communicate.model;
 
-public interface Media {
+import javax.persistence.Embeddable;
+
+
+public interface Media  {
 
 }

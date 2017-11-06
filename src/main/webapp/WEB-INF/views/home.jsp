@@ -43,6 +43,24 @@
                     <td><form:input path="mobileNumber"/></td>
                 </tr>
                 <tr>
+                	<td><form:label path="password">Sex</form:label></td>
+                	<td><form:radiobutton path="gender" value="M"/>Male</td>
+                    <td><form:radiobutton path="gender" value="F"/>Female</td>
+                    <td><form:radiobutton path="gender" value="O"/>Other</td>
+                </tr>
+                <tr>
+                	<td><form:label path="password">Interest</form:label></td>
+                	<td><form:radiobutton path="sexualInterest" value="M"/>Male</td>
+                    <td><form:radiobutton path="sexualInterest" value="F"/>Female</td>
+                    <td><form:radiobutton path="sexualInterest" value="O"/>Other</td>
+                </tr>
+                
+                <tr>
+                	<td><form:select path="day"></form:select></td>
+                	<td><form:select path="month"></form:select></td>
+                	<td><form:select path="year"></form:select></td>
+                </tr>
+                <tr>
                     <td><input type="submit" value="Submit"/></td>
                 </tr>
             </table>

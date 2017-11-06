@@ -16,6 +16,7 @@
 		<hibernate.version.validator>6.0.2.Final</hibernate.version.validator>
 		<!-- <springboot.version>1.5.9.BUILD-SNAPSHOT</springboot.version> -->
 		<springboot.version>1.5.8.RELEASE</springboot.version>
+		<jodatime.version>2.9.8</jodatime.version>
 	</properties>
 
 	<!-- UI RESOURCES -->
@@ -267,7 +268,11 @@
 			<version>2.1</version>
 		</dependency>
 
-
+		<dependency>
+    		<groupId>joda-time</groupId>
+    		<artifactId>joda-time</artifactId>
+    		<version>${jodatime.version}</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

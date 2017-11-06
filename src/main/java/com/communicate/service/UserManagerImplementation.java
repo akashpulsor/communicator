@@ -26,6 +26,9 @@ public class UserManagerImplementation implements UserManager{
 		user.setName(regForm.getName());
 		user.setPassword(regForm.getPassword());
 		user.setMobileNumber(regForm.getMobileNumber());
+		user.setGender(regForm.getGender());
+		user.setSexualInterest(regForm.getSexualInterest());
+		user.setBirthDate(regForm.getBirthDate());
 		userDao.save(user);
 		// TODO Auto-generated method stub
 		return user;
