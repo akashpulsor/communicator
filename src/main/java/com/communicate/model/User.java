@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -75,10 +76,13 @@ public class User extends AbstractEntity implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	private Gender sexualInterest;
+	
+	@Embedded
+	private Image profilePic;
 
 
-	//@OneToMany(mappedBy="User", cascade=CascadeType.ALL)
-	//private List<Media> media;
+	@Embedded
+	private List<Media> mediaLibrary;
 	/**
 	 * @return the address
 	 */
@@ -211,6 +215,22 @@ public class User extends AbstractEntity implements Serializable {
 
 	public void setSexualInterest(Gender sexualInterest) {
 		this.sexualInterest = sexualInterest;
+	}
+
+	public Image getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(Image profilePic) {
+		this.profilePic = profilePic;
+	}
+
+	public List<Media> getMediaLibrary() {
+		return mediaLibrary;
+	}
+
+	public void setMediaLibrary(List<Media> mediaLibrary) {
+		this.mediaLibrary = mediaLibrary;
 	}
 	
 	
