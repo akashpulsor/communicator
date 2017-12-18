@@ -2,9 +2,11 @@ package com.communicate.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Embeddable
-public class Image  implements Media  {
+
+public class Image   {
 	
 	
 	

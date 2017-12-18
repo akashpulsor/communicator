@@ -1,35 +1,22 @@
 package com.communicate.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.joda.time.DateTime;
-
-import com.communicate.utils.DateConveter;
-import com.communicate.utils.GenderConverter;
 
 @Entity
 @Table(name="USER")
@@ -38,8 +25,8 @@ public class User extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
    //TODO add asserts	
-	@OneToOne
-	@JoinColumn(name = "id")
+
+	@Embedded
 	private Address address;
 	
 	@NotNull(message = "Name cannot be null and smaller than 6 characters")
@@ -77,13 +64,11 @@ public class User extends AbstractEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Gender sexualInterest;
 	
-	@Embedded
-	private Image profilePic;
-
-
-	@Embedded
-	private List<Media> mediaLibrary;
 	/**
+	@OneToMany
+	@JoinColumn(name = "id")
+	private List<Media> mediaLibrary;
+	
 	 * @return the address
 	 */
 	public Address getAddress() {
@@ -217,20 +202,30 @@ public class User extends AbstractEntity implements Serializable {
 		this.sexualInterest = sexualInterest;
 	}
 
-	public Image getProfilePic() {
-		return profilePic;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
 	}
 
-	public void setProfilePic(Image profilePic) {
-		this.profilePic = profilePic;
-	}
-
-	public List<Media> getMediaLibrary() {
-		return mediaLibrary;
-	}
-
-	public void setMediaLibrary(List<Media> mediaLibrary) {
-		this.mediaLibrary = mediaLibrary;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
 	}
 	
 	

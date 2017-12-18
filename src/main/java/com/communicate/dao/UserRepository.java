@@ -1,19 +1,20 @@
 package com.communicate.dao;
 
-import javax.security.sasl.AuthenticationException;
-
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.Repository;
 
 import com.communicate.model.User;
 
-@Repository
-public interface UserRepository extends  CrudRepository<User, Long> {
+
+public interface UserRepository extends  Repository<User, Long> {
 	
-	User findOne(Long id);
+	
 	
 	@SuppressWarnings("unchecked")
 	User  save(User user);
+	
+	User findByEmailIgnoreCase(String email);
+	
+	
 
 	//User authenticateUser(String UserName,String Passowrd) throws AuthenticationException;	
 

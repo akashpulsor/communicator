@@ -14,83 +14,48 @@
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<hibernate.version>5.0.2.Final</hibernate.version>
 		<hibernate.version.validator>6.0.2.Final</hibernate.version.validator>
-		<!-- <springboot.version>1.5.9.BUILD-SNAPSHOT</springboot.version> -->
-		<springboot.version>1.5.8.RELEASE</springboot.version>
+		<springboot.version>1.5.9.BUILD-SNAPSHOT</springboot.version> 
+		<!-- <springboot.version>1.5.9.RELEASE</springboot.version>-->
 		<jodatime.version>2.9.8</jodatime.version>
 	</properties>
 
 	<!-- UI RESOURCES -->
 	<dependencies>
+	
+	<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>webjars-locator</artifactId>
+    <version>0.1</version>
+</dependency>
+            
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>jquery</artifactId>
+    <version>2.0.3</version> 
+</dependency>
+
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>bootstrap</artifactId>
+    <version>3.0.0</version>
+</dependency>   
+	
+		
+		
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>font-awesome</artifactId>
+    <version>4.7.0</version>
+</dependency>
+
+
 		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>webjars-locator</artifactId>
-			<version>0.1</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.3</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.webjars.npm</groupId>
-			<artifactId>themify-icons</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>2.0.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-
-<!-- 
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>afterdark</artifactId>
-			<version>1.0.10</version>
-		</dependency> -->
-
-
-		<!-- Spring -->
-		<!-- <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${org.springframework-version}</version>
-			<exclusions>
-				Exclude Commons Logging in favor of SLF4j
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
-
-		<dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-jpa</artifactId>
-        <version>2.0.0.RELEASE</version>
-    	</dependency>
-    	
- -->
+	
+		
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-web</artifactId>
@@ -111,15 +76,15 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <groupId>org.hibernate</groupId>
         </exclusion>
+        <exclusion>
+        <artifactId>javassist</artifactId>
+            <groupId>org.javassist</groupId>
+        </exclusion>
     </exclusions>
         </dependency>
+ 
 
-		<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-starter-test</artifactId>
-    		<version>${springboot.version}</version>
-    		<scope>test</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -141,6 +106,16 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven -->
+<dependency>
+<groupId>org.projectlombok</groupId>
+<artifactId>lombok</artifactId>
+<version>1.16.8</version>
+<scope>provided</scope>
+</dependency>
+
+		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -319,6 +294,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -327,7 +303,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${springboot.version}</version>
+				
 			</plugin>
+			
 		</plugins>
 
 		<resources>

@@ -1,29 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<!-- Basic -->
+<%@ include file="common/header.jspf"%>
+<nav class="navbar navbar-toggleable-md navbar-light-blue bg-faded">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Communicator</title>
-<meta name="keywords" content="HTML5 Theme" />
-<meta name="description" content="Megakit - HTML5 Theme">
-
-</head>
- <body>
-		<!--========== HEADER ==========-->
-	<header
-		class="navbar-fixed-top s-header js__header-sticky js__header-overlay">
-
-	</header>
+	<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+	Communicator</header>
 	
-	<form:form method="POST" action="register.html" modelAttribute="registrationForm">
+  </div>  
+</nav>
+
+
+	<div class="container">
+		<form:form method="POST" action="register.html" modelAttribute="registrationForm">
              <table>
                 <tr>
                     <td><form:label path="name">Name</form:label></td>
@@ -43,13 +30,13 @@
                     <td><form:input path="mobileNumber"/></td>
                 </tr>
                 <tr>
-                	<td><form:label path="password">Sex</form:label></td>
+                	<td><form:label path="gender">Sex</form:label></td>
                 	<td><form:radiobutton path="gender" value="M"/>Male</td>
                     <td><form:radiobutton path="gender" value="F"/>Female</td>
                     <td><form:radiobutton path="gender" value="O"/>Other</td>
                 </tr>
                 <tr>
-                	<td><form:label path="password">Interest</form:label></td>
+                	<td><form:label path="sexualInterest">Interest</form:label></td>
                 	<td><form:radiobutton path="sexualInterest" value="M"/>Male</td>
                     <td><form:radiobutton path="sexualInterest" value="F"/>Female</td>
                     <td><form:radiobutton path="sexualInterest" value="O"/>Other</td>
@@ -65,6 +52,28 @@
                 </tr>
             </table>
         </form:form>
-	<!--========== END HEADER ==========-->
-</body>
-</html>
+	</div>
+	
+        
+        <div>
+        	<form:form method="POST" action="login.html" modelAttribute="loginForm">
+	             <table>
+	                 <tr>
+	                 	<td><form:label path="login">Mobile/Email</form:label></td>
+	                	 <td><form:input path="login"/></td>
+	                	 
+	                </tr>
+	                
+	                <tr>
+	                	
+	                	<td><form:label path="password">Password</form:label></td>
+	                	<td><form:password path="password"/></td>
+	                </tr> 
+	                
+	                 <tr>
+	                    <td><input type="submit" value="Login"/></td>
+	                </tr>
+	            </table>
+        	</form:form>
+        </div>
+<%@ include file="common/footer.jspf"%>

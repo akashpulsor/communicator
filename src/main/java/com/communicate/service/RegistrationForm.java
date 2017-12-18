@@ -1,22 +1,11 @@
 package com.communicate.service;
 
-import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.stereotype.Service;
-
-import com.communicate.model.Address;
 import com.communicate.model.Gender;
-import com.communicate.model.User;
 import com.communicate.utils.DateConveter;
 import com.communicate.utils.GenderConverter;
 
