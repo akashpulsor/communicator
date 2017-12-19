@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -19,20 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.communicate.Exception.StorageException;
 import com.communicate.Exception.StorageFileNotFoundException;
-import com.communicate.utils.StorageProperties;
 
 @Service
 public class ImageStorageService implements StorageService {
+
 	
-	private @Value("${Image.directory.url}") 
-	Path rootLocation;
-
-	@Autowired
-    public ImageStorageService(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation());
-    }
-
-
+	@Value("${Image.directory.url}") 
+	private Path rootLocation;
+	
 	@Override
 	public void init() {
 		try {
@@ -40,12 +32,13 @@ public class ImageStorageService implements StorageService {
         }
         catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
-        }
+        }// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void store(MultipartFile file) {
+		// TODO Auto-generated method stub
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
@@ -63,28 +56,28 @@ public class ImageStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+
+
 	}
 
 	@Override
 	public Stream<Path> loadAll() {
-		 try {
-	            return Files.walk(this.rootLocation, 1)
-	                    .filter(path -> !path.equals(this.rootLocation))
-	                    .map(path -> this.rootLocation.relativize(path));
-	        }
-	        catch (IOException e) {
-	            throw new StorageException("Failed to read stored files", e);
-	        }
+		
+ 
+		return null;
 	}
 
 	@Override
 	public Path load(String filename) {
+		// TODO Auto-generated method stub
+		//return null;
 		return rootLocation.resolve(filename);
 	}
 
 	@Override
 	public Resource loadAsResource(String filename) {
-		try {
+		// TODO Auto-generated method stub
+  		try {
             Path file = load(filename);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
@@ -99,10 +92,13 @@ public class ImageStorageService implements StorageService {
         catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
+
+
 	}
 
 	@Override
 	public void deleteAll() {
+		// TODO Auto-generated method stub
 		FileSystemUtils.deleteRecursively(rootLocation.toFile());
 	}
 

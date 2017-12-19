@@ -22,8 +22,8 @@ public class UserManagerImplementation implements UserManager{
     //private EntityManager entityManager;
     
     //private  StorageService storageService;
-    //@Autowired
-	//ImageUploadServiceImpl imageUploadService;
+    @Autowired
+	ImageStorageService imageUploadService;
 	 
 	@Override
 	public DashBoard createUser(RegistrationForm regForm) throws Exception {
@@ -53,8 +53,8 @@ public class UserManagerImplementation implements UserManager{
 	}
 	
 	public boolean storeImage( MultipartFile image ) {
-		
-		return false;//imageUploadService.store(image);
+		imageUploadService.store(image);
+		return true;
 		
 	}
 	

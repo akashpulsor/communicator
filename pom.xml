@@ -27,6 +27,13 @@
     <artifactId>webjars-locator</artifactId>
     <version>0.1</version>
 </dependency>
+    <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
+<dependency>
+    <groupId>org.javassist</groupId>
+    <artifactId>javassist</artifactId>
+    <version>3.19.0-GA</version>
+    <scope>runtime</scope>
+</dependency>
             
 <dependency>
     <groupId>org.webjars</groupId>
@@ -76,8 +83,8 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <groupId>org.hibernate</groupId>
         </exclusion>
-        <exclusion>
-        <artifactId>javassist</artifactId>
+<exclusion>
+            <artifactId>javassist</artifactId>
             <groupId>org.javassist</groupId>
         </exclusion>
     </exclusions>
