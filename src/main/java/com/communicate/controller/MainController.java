@@ -5,11 +5,16 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,9 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.communicate.model.User;
 import com.communicate.service.DashBoard;
+import com.communicate.service.ImageStorageService;
 import com.communicate.service.LoginForm;
 import com.communicate.service.RegistrationForm;
+import com.communicate.service.StorageService;
 import com.communicate.service.UserManagerImplementation;
 
 @Controller
@@ -53,7 +61,7 @@ public class MainController {
 
 		logger.info("Recieved registration form " + regform.getName());
 		Assert.assertNotNull("User manager Implementation is null", userManager);
-		redirectAttributes.addFlashAttribute("dashboard", userManager.createUser(regform) );
+		redirectAttributes.addFlashAttribute("user", userManager.createUser(regform) );
 		return "redirect:dashboard.html";
 	}
 
@@ -61,16 +69,16 @@ public class MainController {
 	public String login( @Valid @ModelAttribute("loginForm") LoginForm login,BindingResult result,
 			RedirectAttributes redirectAttributes ) throws Exception {
 		logger.info("Recieved LogIn Object " + login.toString()  );
-		DashBoard dashboard = userManager.authenticateUser( login.getLogin(), login.getPassword() );
-		redirectAttributes.addFlashAttribute("dashboard", dashboard );
+		User user = userManager.authenticateUser( login.getLogin(), login.getPassword() );
+		redirectAttributes.addFlashAttribute("user", user );
 		return "redirect:dashboard.html";
 	}
 	
 
 	@RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
-	public String dashboard( @ModelAttribute("dashboard") DashBoard dashboard
+	public String dashboard( @ModelAttribute("user") User user
 			,  ModelMap map ) {
-		map.addAttribute("dashboard", dashboard);
+		map.addAttribute("user", user);
 		return "/dashboard";
 	}
 	
@@ -79,15 +87,25 @@ public class MainController {
 		return "AKASH";
 	}
 	
-	@PostMapping("/uploadimg.html")
-    public String imageUpload(@RequestParam("file") MultipartFile image,
+	@PostMapping("/{userid}/uploadimg.html")
+    public String imageUpload(@PathVariable("file") MultipartFile image,
+    		@PathVariable("userid") long userId,
             RedirectAttributes redirectAttributes) {
 
-		userManager.storeImage(image);
+		userManager.storeImage(userId, image );
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + image.getOriginalFilename() + "!");
         
         return "/redirect:dashboard";
     }
+	 @GetMapping("/image/{albumId}/imageId.jpg")
+	    @ResponseBody
+	 public ResponseEntity<Resource> serveFile( @PathVariable long albumId, 
+			 @PathVariable long imageId ) {
+
+        Resource file = userManager.getImage( albumId, imageId );
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+	 }
 
 }

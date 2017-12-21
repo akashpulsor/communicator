@@ -10,7 +10,6 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class DashBoard {
 	
-	private Image profilePic;
 	
 	
 	private String profilename;

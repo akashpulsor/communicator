@@ -26,7 +26,7 @@ public class UserManagerImplementation implements UserManager{
 	ImageStorageService imageUploadService;
 	 
 	@Override
-	public DashBoard createUser(RegistrationForm regForm) throws Exception {
+	public User createUser(RegistrationForm regForm) throws Exception {
 		User user = new User();
 		user.setEmail(regForm.getEmail());
 		user.setName(regForm.getName());
@@ -37,24 +37,39 @@ public class UserManagerImplementation implements UserManager{
 		user.setBirthDate(regForm.getBirthDate());
 		userDao.save(user);
 		// TODO Auto-generated method stub
-		return createDashBoard(user);
+		return user;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public DashBoard authenticateUser( String userName, String password ) throws Exception {
+	public User authenticateUser( String userName, String password ) throws Exception {
 		// TODO Auto-generated method stub
 		User user = userDao.findByEmailIgnoreCase(userName);
 		Assert.notNull(user);
 		if( user.getPassword().equals(password) ){
-			return createDashBoard(user);
+			return user;
 		}
 		throw new Exception();
 	}
 	
-	public boolean storeImage( MultipartFile image ) {
+	public boolean storeImage( long userId, MultipartFile image ) {
+		// Validate File
+		// if albumId doesn't exists 
+		// Create one
+		// Create image id
+		// Store in Album Table
+		// Store Album Id and ProfilePic id in User Table
+		// If Image upload successful then return true other wise return false
+		// Use Assert function
 		imageUploadService.store(image);
 		return true;
+		
+	}
+	
+	public Resource getImage( long imageId, long albumId  ) {
+		// Create file path using image Id,User Id, Album Id
+		//imageUploadService.load(image);
+		return null;
 		
 	}
 	
