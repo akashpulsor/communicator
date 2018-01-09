@@ -59,6 +59,9 @@ public class User extends AbstractEntity implements Serializable {
 	private Long birthDate;
 	
 	@Column
+	private Long albumId;
+	
+	@Column
 	private Long joinDate = new DateTime().getMillis();
 	
 	@Enumerated(EnumType.STRING)
@@ -226,6 +229,14 @@ public class User extends AbstractEntity implements Serializable {
 		} else if (!email.equals(other.email))
 			return false;
 		return true;
+	}
+
+	public Long getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(Long albumId) {
+		this.albumId = albumId;
 	}
 	
 	

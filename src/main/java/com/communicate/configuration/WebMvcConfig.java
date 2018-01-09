@@ -1,6 +1,7 @@
 package com.communicate.configuration;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -14,7 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -36,7 +39,21 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		return new BeanNameUrlHandlerMapping();
 	}
 	
-
+	 @Bean(name = "multipartResolver")
+	    public CommonsMultipartResolver getResolver() throws IOException{
+	        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+	        
+	        
+	         
+	        //Set the maximum allowed size (in bytes) for each individual file.
+	        resolver.setMaxUploadSizePerFile(5242880);
+	        resolver.setDefaultEncoding("utf-8");//5MB
+	         
+	        //You may also set other available properties.
+	         
+	        return resolver;
+	    }
+	 
 
 
 	@Bean
@@ -71,5 +88,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
+	
+	 @Override
+	  public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+	    configurer.defaultContentType(MediaType.APPLICATION_XML).
+	    mediaType("multi_part_form_data",MediaType.MULTIPART_FORM_DATA);
+	  }
 
 }

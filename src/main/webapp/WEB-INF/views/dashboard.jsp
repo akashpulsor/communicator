@@ -5,32 +5,31 @@
 <p>Dashboard</p>
 <div class="container">
 
-<form:form method="POST" action =  "uploadimg.html"  modelAttribute="user"
+<form:form method="POST" action =  "${user.id}/uploadimg.html"  modelAttribute="user"
     enctype="multipart/form-data">
 
       <table>
         <tr>
-            <td><form:label path="profilename">${user.name}</form:label></td>
+            <td><form:label path="name">${user.name}</form:label></td>
         </tr>
 
         
         <tr>
         	<td>
-        	<img width="100" src="<c:url value="${dashboard.imagepath}"/>"/>
+        	<img width="100" src="<c:url value="/image/${user.albumId}/imageId.jpg"/>"/>
         	
         	</td>
         	
-            <td><form:label path="file">Please select a file to upload :</form:label></td>
+            <td>Please select a file to upload :</td>
             <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="upload" /></td>
         </tr>
-        <tr>
-            <td><input type="submit" value="Submit"/></td>
-        </tr>
+        
      </table>
     
 
      
-    <input type="submit" value="upload" />
+    
     
     
 
