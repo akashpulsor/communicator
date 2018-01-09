@@ -88,7 +88,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/{userid}/uploadimg.html")
-    public String imageUpload(@PathVariable("file") MultipartFile image,
+    public String imageUpload(@RequestParam("file") MultipartFile image,
     		@PathVariable("userid") long userId,
             RedirectAttributes redirectAttributes) {
 

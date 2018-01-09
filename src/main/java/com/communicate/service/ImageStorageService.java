@@ -51,7 +51,7 @@ public class ImageStorageService implements StorageService {
                                 + filename);
             }
             Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
-                    StandardCopyOption.REPLACE_EXISTING);
+                    StandardCopyOption.REPLACE_EXISTING );
         }
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
