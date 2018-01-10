@@ -1,3 +1,4 @@
+<%@page import="com.communicate.model.User"%>
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 
@@ -5,7 +6,7 @@
 <p>Dashboard</p>
 <div class="container">
 
-<form:form method="POST" action =  "${user.id}/uploadimg.html"  modelAttribute="user"
+<form:form method="POST" action =  "uploadimg.html"  modelAttribute="user"
     enctype="multipart/form-data">
 
       <table>
@@ -20,6 +21,11 @@
         	
         	</td>
         	
+        	
+        	<td>
+        	
+        	<input type = "hidden" name = "userid" value = "<c:out value = "${user.id}" />"/>
+        	</td> 
             <td>Please select a file to upload :</td>
             <td><input type="file" name="file" /></td>
             <td><input type="submit" value="upload" /></td>

@@ -87,19 +87,24 @@ public class MainController {
 		return "AKASH";
 	}
 	
-	@PostMapping("/{userid}/uploadimg.html")
+	@RequestMapping( value = "/uploadimg.html",
+			params = { "userid" },
+			method = RequestMethod.POST )
     public String imageUpload(@RequestParam("file") MultipartFile image,
-    		@PathVariable("userid") long userId,
+    		@RequestParam("userid") String userId,
             RedirectAttributes redirectAttributes) {
+		User user = userManager.storeImage( Long.parseLong(userId), image );
 
-		userManager.storeImage(userId, image );
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + image.getOriginalFilename() + "!");
         
-        return "/redirect:dashboard";
+        redirectAttributes.addFlashAttribute("user", user );
+        return "redirect:dashboard.html";
     }
+	
+	
 	 @GetMapping("/image/{albumId}/imageId.jpg")
-	    @ResponseBody
+	 @ResponseBody
 	 public ResponseEntity<Resource> serveFile( @PathVariable long albumId, 
 			 @PathVariable long imageId ) {
 

@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 
 import org.joda.time.DateTime;
 
+import com.communicate.utils.Utils;
+
 @Entity
 @Table(name="USER")
 public class User extends AbstractEntity implements Serializable {
@@ -59,10 +61,10 @@ public class User extends AbstractEntity implements Serializable {
 	private Long birthDate;
 	
 	@Column
-	private Long albumId;
+	private String albumId;
 	
 	@Column
-	private Long joinDate = new DateTime().getMillis();
+	private Long joinDate = Utils.getEpochMillis();
 	
 	@Enumerated(EnumType.STRING)
 	private Gender sexualInterest;
@@ -206,6 +208,20 @@ public class User extends AbstractEntity implements Serializable {
 	}
 
 
+	/**
+	 * @return the albumId
+	 */
+	public String getAlbumId() {
+		return albumId;
+	}
+
+	/**
+	 * @param albumId the albumId to set
+	 */
+	public void setAlbumId(String albumId) {
+		this.albumId = albumId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -231,12 +247,13 @@ public class User extends AbstractEntity implements Serializable {
 		return true;
 	}
 
-	public Long getAlbumId() {
-		return albumId;
-	}
 
-	public void setAlbumId(Long albumId) {
-		this.albumId = albumId;
+	@Override
+	public String toString() {
+		return "User [address=" + address + ", password=" + password + ", name=" + name + ", email=" + email
+				+ ", mobileNumber=" + mobileNumber + ", gender=" + gender + ", country=" + country + ", birthDate="
+				+ birthDate + ", albumId=" + albumId + ", joinDate=" + joinDate + ", sexualInterest=" + sexualInterest
+				+ ", getId()=" + getId() + "]";
 	}
 	
 	

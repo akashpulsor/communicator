@@ -1,27 +1,41 @@
 package com.communicate.service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.communicate.dao.MediaLibraryRepository;
 import com.communicate.dao.UserRepository;
+import com.communicate.model.MediaKey;
+import com.communicate.model.MediaLibrary;
+import com.communicate.model.MediaType;
 import com.communicate.model.User;
+import com.communicate.utils.ImageUtils;
+import com.communicate.utils.Utils;
 
 @Service
 public class UserManagerImplementation implements UserManager{
 
+	private static final Logger logger = Logger.getLogger( UserManagerImplementation.class );
+	
 	@Autowired
 	UserRepository userDao;
 	
-    //@PersistenceContext
-    //private EntityManager entityManager;
+	@Autowired
+	MediaLibraryRepository albumDao;
+	
+	@Value("${Image.directory.url}") 
+	private Path rootLocation;
+	
     
-    //private  StorageService storageService;
     @Autowired
 	ImageStorageService imageUploadService;
 	 
@@ -35,6 +49,8 @@ public class UserManagerImplementation implements UserManager{
 		user.setGender(regForm.getGender());
 		user.setSexualInterest(regForm.getSexualInterest());
 		user.setBirthDate(regForm.getBirthDate());
+		
+		logger.info("storing object to database" + user.toString() );
 		userDao.save(user);
 		// TODO Auto-generated method stub
 		return user;
@@ -52,31 +68,47 @@ public class UserManagerImplementation implements UserManager{
 		throw new Exception();
 	}
 	
-	public boolean storeImage( long userId, MultipartFile image ) {
+	public User storeImage( long userId, MultipartFile image ) {
 		// Validate File
+		User user = userDao.findById(userId);
 		// if albumId doesn't exists 
 		// Create one
 		// Create image id
-		// Store in Album Table
+		if( user.getAlbumId() == null) {
+			user.setAlbumId( ImageUtils.getId( userId ) );
+		}
+		String fileName = StringUtils.cleanPath( image.getOriginalFilename());
+		String imageId = ImageUtils.getId() + user.getAlbumId(); 
+		imageId = imageId + fileName; 
+		MediaLibrary mediaLibrary = new MediaLibrary();
+		MediaKey mediaKey = new MediaKey();
+		mediaKey.setAlbumId( user.getAlbumId() );
+		mediaKey.setMediaId(imageId);
+		mediaKey.setUserId(user.getId());
+		mediaLibrary.setMediaKey( mediaKey );
+		mediaLibrary.setType(MediaType.IMAGE);
+		mediaLibrary.setOriginalMediaName( fileName );
 		// Store Album Id and ProfilePic id in User Table
-		// If Image upload successful then return true other wise return false
-		// Use Assert function
-		imageUploadService.store(image);
-		return true;
+		logger.info("Internal File name "+ imageId );
+		Path albumPath  = Paths.get(this.rootLocation+"/"+ mediaKey.getAlbumId());
+		if( !Utils.existsDirectory(albumPath)) {
+			logger.info("Creating Media Directory "+ albumPath );
+			Utils.createDirectory(albumPath);
+		}
+		imageUploadService.store( image, albumPath, mediaKey.getMediaId().toString() );
+		albumDao.save(mediaLibrary);
+		userDao.save(user);
+		return user;
 		
 	}
+	
+	
 	
 	public Resource getImage( long imageId, long albumId  ) {
 		// Create file path using image Id,User Id, Album Id
 		//imageUploadService.load(image);
 		return null;
 		
-	}
-	
-	
-	private DashBoard createDashBoard( User user ) {
-		DashBoard dashboard = new DashBoard(user);
-		return dashboard;
 	}
 	
 	

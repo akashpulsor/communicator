@@ -11,7 +11,7 @@ public interface StorageService {
 	
 	void init();
 
-    void store(MultipartFile file);
+    void store(MultipartFile file, Path rootLocation, String FileName );
 
     Stream<Path> loadAll();
 

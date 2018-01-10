@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -17,44 +18,43 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.communicate.Exception.StorageException;
 import com.communicate.Exception.StorageFileNotFoundException;
+import com.communicate.utils.Utils;
 
 @Service
 public class ImageStorageService implements StorageService {
 
+	private static final Logger logger = Logger.getLogger( ImageStorageService.class );
 	
 	@Value("${Image.directory.url}") 
 	private Path rootLocation;
 	
 	@Override
 	public void init() {
-		try {
-            Files.createDirectories(rootLocation);
-        }
-        catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
-        }// TODO Auto-generated method stub
-
+		Utils.createDirectory( rootLocation );
 	}
 
 	@Override
-	public void store(MultipartFile file) {
+	public void store(MultipartFile file, Path directory, String fileName ) {
 		// TODO Auto-generated method stub
-		String filename = StringUtils.cleanPath(file.getOriginalFilename());
+		String orignalFilename = StringUtils.cleanPath( file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
-                throw new StorageException("Failed to store empty file " + filename);
+                throw new StorageException("Failed to store empty file " + fileName );
             }
-            if (filename.contains("..")) {
+            if (orignalFilename.contains("..")) {
                 // This is a security check
                 throw new StorageException(
                         "Cannot store file with relative path outside current directory "
-                                + filename);
+                                + orignalFilename);
             }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+            
+            
+            Files.copy(file.getInputStream(), directory.resolve(fileName),
                     StandardCopyOption.REPLACE_EXISTING );
         }
         catch (IOException e) {
-            throw new StorageException("Failed to store file " + filename, e);
+        	logger.error("Failed to store image " + orignalFilename, e);
+            throw new StorageException("Failed to store file " + orignalFilename, e);
         }
 
 
@@ -71,6 +71,7 @@ public class ImageStorageService implements StorageService {
 	public Path load(String filename) {
 		// TODO Auto-generated method stub
 		//return null;
+		logger.info( "get image from " + filename );
 		return rootLocation.resolve(filename);
 	}
 
@@ -90,6 +91,7 @@ public class ImageStorageService implements StorageService {
             }
         }
         catch (MalformedURLException e) {
+        	logger.error("Could not read file: " + filename, e);
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
 

@@ -14,7 +14,7 @@ public interface UserRepository extends  Repository<User, Long> {
 	
 	User findByEmailIgnoreCase(String email);
 	
-	
+	User findById(Long id);
 
 	//User authenticateUser(String UserName,String Passowrd) throws AuthenticationException;	
 
