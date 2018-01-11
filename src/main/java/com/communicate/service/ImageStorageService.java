@@ -68,31 +68,31 @@ public class ImageStorageService implements StorageService {
 	}
 
 	@Override
-	public Path load(String filename) {
+	public Path load( Path fileName ) {
 		// TODO Auto-generated method stub
 		//return null;
-		logger.info( "get image from " + filename );
-		return rootLocation.resolve(filename);
+		logger.info( "get image from " + fileName );
+		return rootLocation.resolve( fileName );
 	}
 
 	@Override
-	public Resource loadAsResource(String filename) {
+	public Resource loadAsResource( Path fileName ) {
 		// TODO Auto-generated method stub
   		try {
-            Path file = load(filename);
+            Path file = load(fileName);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             }
             else {
                 throw new StorageFileNotFoundException(
-                        "Could not read file: " + filename);
+                        "Could not read file: " + fileName );
 
             }
         }
         catch (MalformedURLException e) {
-        	logger.error("Could not read file: " + filename, e);
-            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
+        	logger.error("Could not read file: " + fileName, e);
+            throw new StorageFileNotFoundException("Could not read file: " + fileName, e);
         }
 
 

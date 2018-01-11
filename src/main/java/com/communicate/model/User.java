@@ -64,6 +64,9 @@ public class User extends AbstractEntity implements Serializable {
 	private String albumId;
 	
 	@Column
+	private String proflePicId;
+	
+	@Column
 	private Long joinDate = Utils.getEpochMillis();
 	
 	@Enumerated(EnumType.STRING)
@@ -220,6 +223,20 @@ public class User extends AbstractEntity implements Serializable {
 	 */
 	public void setAlbumId(String albumId) {
 		this.albumId = albumId;
+	}
+
+	/**
+	 * @return the proflePicId
+	 */
+	public String getProflePicId() {
+		return proflePicId;
+	}
+
+	/**
+	 * @param proflePicId the proflePicId to set
+	 */
+	public void setProflePicId(String proflePicId) {
+		this.proflePicId = proflePicId;
 	}
 
 	@Override

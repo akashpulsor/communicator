@@ -17,7 +17,7 @@ public class MediaKey implements Serializable {
 	private String mediaId;
 	
 	@Column( nullable = true )
-	private Long userId;
+	private String userId;
 
 
 
@@ -49,17 +49,19 @@ public class MediaKey implements Serializable {
 		this.mediaId = mediaId;
 	}
 
+
+
 	/**
 	 * @return the userId
 	 */
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
 	/**
 	 * @param userId the userId to set
 	 */
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

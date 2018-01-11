@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -88,12 +89,20 @@ public class MainController {
 	}
 	
 	@RequestMapping( value = "/uploadimg.html",
-			params = { "userid" },
+			params = { "userid","image_type" },
 			method = RequestMethod.POST )
     public String imageUpload(@RequestParam("file") MultipartFile image,
-    		@RequestParam("userid") String userId,
+    		@RequestParam("userid") String userId,@RequestParam("image_type") String profile_pic,
             RedirectAttributes redirectAttributes) {
-		User user = userManager.storeImage( Long.parseLong(userId), image );
+		
+		boolean profilePic = false;
+		if( profile_pic != null ) {
+			profilePic = true;
+		}
+		User user = userManager.storeImage( userId, image, profilePic );
+	
+		
+		
 
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + image.getOriginalFilename() + "!");
@@ -103,14 +112,18 @@ public class MainController {
     }
 	
 	
-	 @GetMapping("/image/{albumId}/imageId.jpg")
-	 @ResponseBody
-	 public ResponseEntity<Resource> serveFile( @PathVariable long albumId, 
-			 @PathVariable long imageId ) {
+	@RequestMapping( value = "/image/{userid}/{albumid}/{imageid:.+}",method = RequestMethod.GET )
+	 public ResponseEntity<Resource> getImage( @PathVariable("albumid") String albumId, 
+			 @PathVariable("imageid") String imageId, @PathVariable("userid") String userId ) {
 
-        Resource file = userManager.getImage( albumId, imageId );
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        Resource file = userManager.getFile( userId, albumId, imageId );
+        if( file != null ) {
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        }
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).header( HttpHeaders.CONTENT_DISPOSITION, "Error").body(null);
+
 	 }
 
 }

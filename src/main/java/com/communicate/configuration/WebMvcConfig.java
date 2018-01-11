@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +35,8 @@ import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMa
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	private static final Logger logger = Logger.getLogger(WebMvcConfig.class);
 	private static final Charset UTF8 = Charset.forName("UTF-8");
+	@Value("${Image.directory.url}") 
+	private String rootLocation;
 	
 	@Bean
 	public BeanNameUrlHandlerMapping  beanNameHandlerMapping() {
@@ -81,6 +85,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/web/webjars/**").
 		addResourceLocations("classpath:/META-INF/resources/webjars/")
 		.resourceChain(false);
+		registry.addResourceHandler("/album/**").
+		addResourceLocations("file:///C:/Users/atripathi/Desktop/image");
 	}
 	
 	// Equivalent for <mvc:default-servlet-handler/> tag

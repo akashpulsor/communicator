@@ -68,7 +68,7 @@ public class UserManagerImplementation implements UserManager{
 		throw new Exception();
 	}
 	
-	public User storeImage( long userId, MultipartFile image ) {
+	public User storeImage( String userId, MultipartFile image, boolean profilePic ) {
 		// Validate File
 		User user = userDao.findById(userId);
 		// if albumId doesn't exists 
@@ -77,9 +77,12 @@ public class UserManagerImplementation implements UserManager{
 		if( user.getAlbumId() == null) {
 			user.setAlbumId( ImageUtils.getId( userId ) );
 		}
+		
+	
 		String fileName = StringUtils.cleanPath( image.getOriginalFilename());
 		String imageId = ImageUtils.getId() + user.getAlbumId(); 
 		imageId = imageId + fileName; 
+		
 		MediaLibrary mediaLibrary = new MediaLibrary();
 		MediaKey mediaKey = new MediaKey();
 		mediaKey.setAlbumId( user.getAlbumId() );
@@ -90,13 +93,26 @@ public class UserManagerImplementation implements UserManager{
 		mediaLibrary.setOriginalMediaName( fileName );
 		// Store Album Id and ProfilePic id in User Table
 		logger.info("Internal File name "+ imageId );
-		Path albumPath  = Paths.get(this.rootLocation+"/"+ mediaKey.getAlbumId());
+		Path albumPath  = Paths.get(this.rootLocation+"/"+mediaKey.getUserId()+"/" + mediaKey.getAlbumId());
 		if( !Utils.existsDirectory(albumPath)) {
 			logger.info("Creating Media Directory "+ albumPath );
 			Utils.createDirectory(albumPath);
 		}
+		
+		// Check if directory is  created or not
+		if( !Utils.existsDirectory(albumPath)) {
+			logger.error("Not able to create album directory" );
+			user.setAlbumId(null);
+			return user;
+		}
+		
 		imageUploadService.store( image, albumPath, mediaKey.getMediaId().toString() );
 		albumDao.save(mediaLibrary);
+		
+		if( profilePic == true ) {
+			user.setProflePicId(imageId);
+		}
+		
 		userDao.save(user);
 		return user;
 		
@@ -104,10 +120,16 @@ public class UserManagerImplementation implements UserManager{
 	
 	
 	
-	public Resource getImage( long imageId, long albumId  ) {
+	public Resource getFile( String userId, String albumId, String imageId  ) {
+		
+		Path filePath  = Paths.get(this.rootLocation+"/"+userId +"/"+ albumId + "/" + imageId );
+		Resource file = null;
+		if( Utils.existsDirectory( filePath )) {
+			file = imageUploadService.loadAsResource( filePath );
+		}
 		// Create file path using image Id,User Id, Album Id
-		//imageUploadService.load(image);
-		return null;
+		//
+		return file;
 		
 	}
 	

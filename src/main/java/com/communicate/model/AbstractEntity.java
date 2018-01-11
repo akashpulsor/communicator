@@ -6,17 +6,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @MappedSuperclass
 public abstract class AbstractEntity {
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)		
+	@Id 
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@Column
-	private Long id;
+	private String id;
 
-	public Long getId() {
+
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
 		this.id = id;
 	}
 

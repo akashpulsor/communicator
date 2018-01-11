@@ -17,7 +17,7 @@
         
         <tr>
         	<td>
-        	<img width="100" src="<c:url value="/image/${user.albumId}/imageId.jpg"/>"/>
+        	<img width="100" src="image/${user.id}/${user.albumId}/${user.proflePicId}"/>
         	
         	</td>
         	
@@ -25,6 +25,7 @@
         	<td>
         	
         	<input type = "hidden" name = "userid" value = "<c:out value = "${user.id}" />"/>
+        	<input type = "hidden" name = "image_type" value = "profile_pic" />
         	</td> 
             <td>Please select a file to upload :</td>
             <td><input type="file" name="file" /></td>

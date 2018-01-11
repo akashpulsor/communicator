@@ -3,10 +3,10 @@ package com.communicate.utils;
 public class ImageUtils extends CreateId {
 
 	
-	public static String getId( Long id ) {
+	public static String getId( String id ) {
 	
 		String objectId = getId();
-		objectId = objectId + id.toString(); 
+		objectId = objectId + id; 
 		return objectId;
 	}
 }
