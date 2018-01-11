@@ -65,7 +65,8 @@ public class UserManagerImplementation implements UserManager{
 		if( user.getPassword().equals(password) ){
 			return user;
 		}
-		throw new Exception();
+		
+		return null;
 	}
 	
 	public User storeImage( String userId, MultipartFile image, boolean profilePic ) {
@@ -127,8 +128,6 @@ public class UserManagerImplementation implements UserManager{
 		if( Utils.existsDirectory( filePath )) {
 			file = imageUploadService.loadAsResource( filePath );
 		}
-		// Create file path using image Id,User Id, Album Id
-		//
 		return file;
 		
 	}

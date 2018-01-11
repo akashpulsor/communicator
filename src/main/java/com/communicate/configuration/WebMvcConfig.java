@@ -35,8 +35,7 @@ import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMa
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	private static final Logger logger = Logger.getLogger(WebMvcConfig.class);
 	private static final Charset UTF8 = Charset.forName("UTF-8");
-	@Value("${Image.directory.url}") 
-	private String rootLocation;
+	
 	
 	@Bean
 	public BeanNameUrlHandlerMapping  beanNameHandlerMapping() {
@@ -85,8 +84,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/web/webjars/**").
 		addResourceLocations("classpath:/META-INF/resources/webjars/")
 		.resourceChain(false);
-		registry.addResourceHandler("/album/**").
-		addResourceLocations("file:///C:/Users/atripathi/Desktop/image");
 	}
 	
 	// Equivalent for <mvc:default-servlet-handler/> tag
