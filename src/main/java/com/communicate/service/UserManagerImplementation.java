@@ -2,11 +2,15 @@ package com.communicate.service;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -14,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.communicate.dao.MediaLibraryRepository;
 import com.communicate.dao.UserRepository;
+import com.communicate.model.CustomUserDetails;
 import com.communicate.model.MediaKey;
 import com.communicate.model.MediaLibrary;
 import com.communicate.model.MediaType;
@@ -22,7 +27,7 @@ import com.communicate.utils.ImageUtils;
 import com.communicate.utils.Utils;
 
 @Service
-public class UserManagerImplementation implements UserManager{
+public class UserManagerImplementation implements UserManager, UserDetailsService {
 
 	private static final Logger logger = Logger.getLogger( UserManagerImplementation.class );
 	
@@ -60,8 +65,11 @@ public class UserManagerImplementation implements UserManager{
 	@Override
 	public User authenticateUser( String userName, String password ) throws Exception {
 		// TODO Auto-generated method stub
-		User user = userDao.findByEmailIgnoreCase(userName);
-		Assert.notNull(user);
+		Optional<User> optionalUser = userDao.findByEmailIgnoreCase(userName);
+
+		optionalUser.
+		orElseThrow(() -> new UsernameNotFoundException( "User Name not found"));
+		User user = optionalUser.get(); 
 		if( user.getPassword().equals(password) ){
 			return user;
 		}
@@ -71,7 +79,10 @@ public class UserManagerImplementation implements UserManager{
 	
 	public User storeImage( String userId, MultipartFile image, boolean profilePic ) {
 		// Validate File
-		User user = userDao.findById(userId);
+		Optional<User> optionalUser = userDao.findById(userId);
+		optionalUser.
+		orElseThrow(() -> new UsernameNotFoundException( "User Name not found"));
+		User user = optionalUser.get(); 
 		// if albumId doesn't exists 
 		// Create one
 		// Create image id
@@ -96,16 +107,17 @@ public class UserManagerImplementation implements UserManager{
 		logger.info("Internal File name "+ imageId );
 		Path albumPath  = Paths.get(this.rootLocation+"/"+mediaKey.getUserId()+"/" + mediaKey.getAlbumId());
 		if( !Utils.existsDirectory(albumPath)) {
-			logger.info("Creating Media Directory "+ albumPath );
-			Utils.createDirectory(albumPath);
+			logger.info( "Creating Media Directory "+ albumPath );
+			
+			// Check if directory is  created or not
+			if( !Utils.createDirectory(albumPath) ) {
+				logger.error("Not able to create album directory" );
+				user.setAlbumId(null);
+				return user;
+				
+			};
 		}
 		
-		// Check if directory is  created or not
-		if( !Utils.existsDirectory(albumPath)) {
-			logger.error("Not able to create album directory" );
-			user.setAlbumId(null);
-			return user;
-		}
 		
 		imageUploadService.store( image, albumPath, mediaKey.getMediaId().toString() );
 		albumDao.save(mediaLibrary);
@@ -130,6 +142,21 @@ public class UserManagerImplementation implements UserManager{
 		}
 		return file;
 		
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String userName ) throws UsernameNotFoundException {
+		
+		Optional<User> optionalUser = null;
+		if( Utils.isValidEmailAddress(userName) ) {
+			optionalUser = userDao.findByEmailIgnoreCase(userName);
+		}
+		else {
+			optionalUser = userDao.findByMobileNumber(userName);
+		}
+		optionalUser.
+		orElseThrow(() -> new UsernameNotFoundException( "User Name not found"));
+		return optionalUser.map( CustomUserDetails::new).get(); 
 	}
 	
 	

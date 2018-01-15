@@ -9,6 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -61,7 +62,7 @@ public class MainController {
 		logger.info("Recieved registration form " + regform.getName());
 		Assert.assertNotNull("User manager Implementation is null", userManager);
 		redirectAttributes.addFlashAttribute("user", userManager.createUser(regform));
-		return "redirect:dashboard.html";
+		return "redirect:secured/dashboard.html";
 	}
 
 	
@@ -74,11 +75,11 @@ public class MainController {
 			redirectAttributes.addFlashAttribute("exception", user);
 		}
 		redirectAttributes.addFlashAttribute("user", user);
-		return "redirect:dashboard.html";
+		return "redirect:secured/dashboard.html";
 	}
 
-	
-	@RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('user')")
+	@RequestMapping(value = "/secured/dashboard.html", method = RequestMethod.GET)
 	public String dashboard(@ModelAttribute("user") User user, ModelMap map) {
 		map.addAttribute("user", user);
 		return "/dashboard";
@@ -122,5 +123,6 @@ public class MainController {
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).header(HttpHeaders.CONTENT_DISPOSITION, "Error").body(null);
 	}
+	
 
 }
