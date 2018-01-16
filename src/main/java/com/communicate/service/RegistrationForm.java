@@ -48,6 +48,8 @@ public class RegistrationForm  {
 	private String month = "01";
 	private String year = "1989";
 	
+	private String roles; 
+	
 	// TODO date drop down  in UI
 	public String getPassword() {
 		return password;
@@ -133,6 +135,20 @@ public class RegistrationForm  {
 
 	public void setYear(String year) {
 		this.year = year;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	public String getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 	
 }

@@ -10,7 +10,7 @@
 
 
 	<div class="container">
-		<form:form method="POST" action="register.html" modelAttribute="registrationForm">
+		<form:form method="POST" action="register.html" modelAttribute="registrationForm" class="form-signin">
              <table>
                 <tr>
                     <td><form:label path="name">Name</form:label></td>
@@ -46,6 +46,11 @@
                 	<td><form:select path="day"></form:select></td>
                 	<td><form:select path="month"></form:select></td>
                 	<td><form:select path="year"></form:select></td>
+                </tr>
+                <tr>
+                	<td>
+                		<form:input type = "hidden" name = "roles" path = "roles" value = "ROLE_USER" />
+                	</td>
                 </tr>
                 <tr>
                     <td><input type="submit" value="Submit"/></td>

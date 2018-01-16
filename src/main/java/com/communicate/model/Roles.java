@@ -1,6 +1,8 @@
 package com.communicate.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,8 @@ public class Roles {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Integer roleId;
 	
-	String  roleName;
+	@Enumerated(EnumType.STRING)
+	Role  roleName;
 
 	/**
 	 * @return the roleId
@@ -35,14 +38,14 @@ public class Roles {
 	/**
 	 * @return the roleName
 	 */
-	public String getRoleName() {
+	public Role getRoleName() {
 		return roleName;
 	}
 
 	/**
 	 * @param roleName the roleName to set
 	 */
-	public void setRoleName(String roleName) {
+	public void setRoleName(Role roleName) {
 		this.roleName = roleName;
 	}
 
@@ -75,11 +78,18 @@ public class Roles {
 				return false;
 		} else if (!roleId.equals(other.roleId))
 			return false;
-		if (roleName == null) {
-			if (other.roleName != null)
-				return false;
-		} else if (!roleName.equals(other.roleName))
+		if (roleName != other.roleName)
 			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Roles [roleId=" + roleId + ", roleName=" + roleName + "]";
+	}
+
+
 }

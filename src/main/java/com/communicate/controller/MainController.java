@@ -25,13 +25,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.communicate.dao.MediaLibraryRepository;
+import com.communicate.dao.RolesRepository;
+import com.communicate.model.Role;
+import com.communicate.model.Roles;
 import com.communicate.model.User;
 import com.communicate.service.DashBoard;
 import com.communicate.service.ImageStorageService;
 import com.communicate.service.LoginForm;
 import com.communicate.service.RegistrationForm;
+import com.communicate.service.SecurityServiceImplementation;
 import com.communicate.service.StorageService;
 import com.communicate.service.UserManagerImplementation;
+import com.communicate.utils.Utils;
 
 @Controller
 @RequestMapping(value = "/web")
@@ -40,13 +46,20 @@ public class MainController {
 
 	@Autowired
 	UserManagerImplementation userManager;
+	
+	@Autowired 
+	SecurityServiceImplementation securityService;
 
+	@Autowired
+	RolesRepository temp;
+	
 	@RequestMapping(value = "/home.html", method = RequestMethod.GET)
 	public String showForm(ModelMap map) {
 		map.addAttribute("registrationForm", new RegistrationForm());
 		map.addAttribute("loginForm", new LoginForm());
 		return "/home";
 	}
+
 
 	@RequestMapping(value = "/register.html", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("registrationForm") RegistrationForm regform, BindingResult result,
@@ -58,13 +71,16 @@ public class MainController {
 			logger.error("not able to create user " + result.getAllErrors());
 			return "/error";
 		}
-
+		Roles role = new Roles();
+		role.setRoleName(Role.ROLE_USER);
+		temp.save(role);
 		logger.info("Recieved registration form " + regform.getName());
-		Assert.assertNotNull("User manager Implementation is null", userManager);
-		redirectAttributes.addFlashAttribute("user", userManager.createUser(regform));
-		return "redirect:secured/dashboard.html";
-	}
+		User user = userManager.createUser(regform);
+		securityService.autologin(user.getEmail(), user.getPassword());
+		redirectAttributes.addFlashAttribute("user", user);
 
+		return "redirect:dashboard.html";
+	}
 	
 	@RequestMapping(value = "/login.html", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("loginForm") LoginForm login, BindingResult result,
@@ -75,11 +91,11 @@ public class MainController {
 			redirectAttributes.addFlashAttribute("exception", user);
 		}
 		redirectAttributes.addFlashAttribute("user", user);
-		return "redirect:secured/dashboard.html";
+		return "redirect:dashboard.html";
 	}
 
-	@PreAuthorize("hasAnyRole('user')")
-	@RequestMapping(value = "/secured/dashboard.html", method = RequestMethod.GET)
+	//@PreAuthorize("hasAnyRole('user')")
+	@RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
 	public String dashboard(@ModelAttribute("user") User user, ModelMap map) {
 		map.addAttribute("user", user);
 		return "/dashboard";

@@ -2,7 +2,9 @@ package com.communicate.service;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,18 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.communicate.dao.MediaLibraryRepository;
+import com.communicate.dao.RolesRepository;
 import com.communicate.dao.UserRepository;
 import com.communicate.model.CustomUserDetails;
 import com.communicate.model.MediaKey;
 import com.communicate.model.MediaLibrary;
 import com.communicate.model.MediaType;
+import com.communicate.model.Role;
+import com.communicate.model.Roles;
 import com.communicate.model.User;
 import com.communicate.utils.ImageUtils;
 import com.communicate.utils.Utils;
+import com.google.common.collect.Sets;
 
 @Service
 public class UserManagerImplementation implements UserManager, UserDetailsService {
@@ -36,6 +42,9 @@ public class UserManagerImplementation implements UserManager, UserDetailsServic
 	
 	@Autowired
 	MediaLibraryRepository albumDao;
+	
+	@Autowired
+	RolesRepository roleRepository;
 	
 	@Value("${Image.directory.url}") 
 	private Path rootLocation;
@@ -54,6 +63,7 @@ public class UserManagerImplementation implements UserManager, UserDetailsServic
 		user.setGender(regForm.getGender());
 		user.setSexualInterest(regForm.getSexualInterest());
 		user.setBirthDate(regForm.getBirthDate());
+		user.setRoles(Sets.newHashSet(roleRepository.findByRoleName(Role.ROLE_USER)));
 		
 		logger.info("storing object to database" + user.toString() );
 		userDao.save(user);
