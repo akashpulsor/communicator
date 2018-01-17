@@ -35,15 +35,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		http
         .authorizeRequests()
-            .antMatchers("/resources/**", "/home").permitAll()
+            .antMatchers("/resources/**", "/home.html").permitAll()
             .anyRequest().authenticated()
             .and()
         .formLogin()
-            .loginPage("/home")
+            .loginPage("/home.html")
             .permitAll()
+            .loginProcessingUrl("/login.html")
+            .defaultSuccessUrl("/dashboard.html")
+            .failureUrl("/error")
             .and()
         .logout()
-            .permitAll();
+            .permitAll()
+            .logoutSuccessUrl("/home.html");
+         ;
 		
 	}
 	

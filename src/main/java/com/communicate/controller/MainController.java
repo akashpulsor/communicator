@@ -71,9 +71,9 @@ public class MainController {
 			logger.error("not able to create user " + result.getAllErrors());
 			return "/error";
 		}
-		Roles role = new Roles();
+		/*Roles role = new Roles();
 		role.setRoleName(Role.ROLE_USER);
-		temp.save(role);
+		temp.save(role);*/
 		logger.info("Recieved registration form " + regform.getName());
 		User user = userManager.createUser(regform);
 		securityService.autologin(user.getEmail(), user.getPassword());
@@ -82,10 +82,13 @@ public class MainController {
 		return "redirect:dashboard.html";
 	}
 	
+	
 	@RequestMapping(value = "/login.html", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("loginForm") LoginForm login, BindingResult result,
 			RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("Recieved LogIn Object " + login.toString());
+		securityService.autologin(login.getLogin(), login.getPassword());
+		userManager.loadUserByUsername(login.getLogin());
 		User user = userManager.authenticateUser(login.getLogin(), login.getPassword());
 		if( user== null ) {
 			redirectAttributes.addFlashAttribute("exception", user);
@@ -94,7 +97,7 @@ public class MainController {
 		return "redirect:dashboard.html";
 	}
 
-	//@PreAuthorize("hasAnyRole('user')")
+
 	@RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
 	public String dashboard(@ModelAttribute("user") User user, ModelMap map) {
 		map.addAttribute("user", user);

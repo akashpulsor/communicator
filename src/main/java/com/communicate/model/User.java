@@ -13,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -46,13 +47,13 @@ public class User extends AbstractEntity implements Serializable {
 	private String name;
 	
 	@Email(message = "Email should be valid")
-	@Column
+	@Column(unique=true, nullable=false)
 	private String email;
 	
 	
 	@NotNull
     @Size(min=10, max=10)
-	@Column
+	@Column(unique=true, nullable=false)
 	private String mobileNumber;
 	
 	@Enumerated(EnumType.STRING)
@@ -76,9 +77,11 @@ public class User extends AbstractEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Gender sexualInterest;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns =
-    @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+    @JoinColumn(name = "userId", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "roleId"
+    		,referencedColumnName = "roleId" )
+    )
 	private Set<Roles> roles;
 	
 	

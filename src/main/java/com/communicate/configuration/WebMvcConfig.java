@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -86,6 +87,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		.resourceChain(false);
 	}
 	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		 
+		      registry.addViewController("/home.html");
+		      registry.addViewController("/register.html");
+		      registry.addViewController("/login.html");
+		      registry.addViewController("/uploadimg.html");
+		      
+	}
 	// Equivalent for <mvc:default-servlet-handler/> tag
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
