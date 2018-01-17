@@ -60,9 +60,7 @@ public class MainController {
 			logger.error("not able to create user " + result.getAllErrors());
 			return "/error";
 		}
-		/*Roles role = new Roles();
-		role.setRoleName(Role.ROLE_USER);
-		temp.save(role);*/
+
 		logger.info("Recieved registration form " + regform.getName());
 		User user = userManager.createUser(regform);
 		securityService.autologin(user.getEmail(), user.getPassword());

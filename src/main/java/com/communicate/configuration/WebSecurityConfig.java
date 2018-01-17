@@ -37,17 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
             .antMatchers("/resources/**", "/home.html").permitAll()
             .anyRequest().authenticated()
-            .and()
-        .formLogin()
-            .loginPage("/home.html")
-            .permitAll()
-            .loginProcessingUrl("/login.html")
-            .defaultSuccessUrl("/dashboard.html")
-            .failureUrl("/error")
-            .and()
-        .logout()
-            .permitAll()
-            .logoutSuccessUrl("/home.html");
+            
          ;
 		
 	}
