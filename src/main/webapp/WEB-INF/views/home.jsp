@@ -13,6 +13,7 @@
 		<form:form method="POST" action="register.html" modelAttribute="registrationForm" class="form-signin">
              <table>
                 <tr>
+                	
                     <td><form:label path="name">Name</form:label></td>
                     <td><form:input path="name"/></td>
                 </tr>
@@ -61,6 +62,7 @@
 	
         
         <div>
+     
         	<form:form method="POST" action="login.html" modelAttribute="loginForm">
 	             <table>
 	                 <tr>

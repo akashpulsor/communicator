@@ -5,7 +5,7 @@
 
 <p>Dashboard</p>
 <div class="container">
-
+<a href="<c:url value="/logout" />">Logout</a>
 <form:form method="POST" action =  "uploadimg.html"  modelAttribute="user"
     enctype="multipart/form-data">
 

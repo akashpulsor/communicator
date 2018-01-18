@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
  
 
 
@@ -32,11 +34,23 @@ public class AppConfig {
 	
 	
 	
-
+	@Bean
+	public SavedRequestAwareAuthenticationSuccessHandler successHandler() {
+	    SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+	    successHandler.setTargetUrlParameter("/web/dashboard.html");
+	    successHandler.setAlwaysUseDefaultTargetUrl(true);
+	    successHandler.setUseReferer(true);
+	    return successHandler;
+	}
 	
 	
 	
-	
+	@Bean
+	public SimpleUrlLogoutSuccessHandler logOutHandler() {
+		SimpleUrlLogoutSuccessHandler successHandler = new SimpleUrlLogoutSuccessHandler();
+	    successHandler.setTargetUrlParameter("/web/home.html");
+	    return successHandler;
+	}
 	
  
 }
