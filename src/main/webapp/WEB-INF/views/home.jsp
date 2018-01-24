@@ -54,6 +54,7 @@
                 	</td>
                 </tr>
                 <tr>
+                	<td><input type="hidden" name = "${_csrf.parameterName} "value="${_csrf.token}"/></td>
                     <td><input type="submit" value="Submit"/></td>
                 </tr>
             </table>
@@ -78,6 +79,7 @@
 	                </tr> 
 	                
 	                 <tr>
+	                 	<td><input type="hidden" name = "${_csrf.parameterName} "value="${_csrf.token}"/></td>
 	                    <td><input type="submit" value="Login"/></td>
 	                </tr>
 	            </table>

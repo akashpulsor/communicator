@@ -42,5 +42,6 @@ public class SecurityServiceImplementation  implements SecurityService{
             logger.debug("Auto login successfully! "+username);
         }
     }
+    
 
 }

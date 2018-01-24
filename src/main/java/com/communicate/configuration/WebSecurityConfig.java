@@ -1,8 +1,10 @@
 package com.communicate.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,13 +27,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserManagerImplementation userDetailsService;
 	
-	@Autowired 
-	private SavedRequestAwareAuthenticationSuccessHandler successHandler;
+	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService)
-		.passwordEncoder(Utils.getPasswordEncoder());
+		auth.authenticationProvider(authenticationProvider());
+	}
+	
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+	    DaoAuthenticationProvider authProvider
+	      = new DaoAuthenticationProvider();
+	    authProvider.setUserDetailsService(userDetailsService);
+	    authProvider.setPasswordEncoder(Utils.getPasswordEncoder());
+	    return authProvider;
 	}
 	
 	@Override
@@ -52,20 +61,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/web/home.html","/web/webjars/**","/web/register.html")
 			.permitAll()
 			.anyRequest().authenticated()
-			.antMatchers("/web/dashboard.html","/web/uploadimg.html","/web/image/**").authenticated()
+			.antMatchers("/web/login.html","/web/dashboard.html","/web/uploadimg.html","/web/image/**").authenticated()
 			.and()
 		.formLogin()
+			
 			.loginPage("/web/home.html")
-			.loginProcessingUrl("/web/login.html")
 			.permitAll()
-			.defaultSuccessUrl("/web/dashboard.html", true)
+			.loginProcessingUrl("/web/login.html")
+			.defaultSuccessUrl("/web/dashboard.html")
 			.usernameParameter("login")
 			.passwordParameter("password")
-			.successHandler(successHandler)
 			.and()
 		.logout()
 		.permitAll()
 		.logoutSuccessUrl("/web/home.html")
+		.invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID")
 		.clearAuthentication(true);
 

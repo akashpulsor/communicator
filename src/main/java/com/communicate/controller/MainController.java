@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -80,13 +81,14 @@ public class MainController {
 		if( user== null ) {
 			redirectAttributes.addFlashAttribute("exception", user);
 		}
-		redirectAttributes.addFlashAttribute("user", user);
+		
 		return "redirect:dashboard.html";
 	}
 
 
 	@RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
-	public String dashboard(@ModelAttribute("user") User user, ModelMap map) {
+	public String dashboard(@AuthenticationPrincipal User user, ModelMap map) {
+		userManager.loadUserByUsername(user.getEmail());
 		map.addAttribute("user", user);
 		return "/dashboard";
 	}
@@ -108,6 +110,7 @@ public class MainController {
 		}
 		User user = userManager.storeImage(userId, image, profilePic);
 
+		
 		redirectAttributes.addFlashAttribute("message",
 				"You successfully uploaded " + image.getOriginalFilename() + "!");
 

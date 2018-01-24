@@ -63,6 +63,9 @@ public class Utils {
 			@Override
 			public boolean matches(CharSequence rawPassword, String encodedPassword) {
 				// TODO Auto-generated method stub
+				if( rawPassword.equals(encodedPassword) ) {
+					return true;
+				}
 				return false;
 			}
 			
