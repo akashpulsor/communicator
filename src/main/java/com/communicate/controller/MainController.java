@@ -34,18 +34,15 @@ public class MainController {
 
 	@Autowired
 	UserManagerImplementation userManager;
-	
-	@Autowired 
+
+	@Autowired
 	SecurityServiceImplementation securityService;
 
-	
-	
 	@RequestMapping(value = "/home.html", method = RequestMethod.GET)
 	public String showForm(ModelMap map) {
 		map.addAttribute("registrationForm", new RegistrationForm());
 		return "/home";
 	}
-
 
 	@RequestMapping(value = "/register.html", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("registrationForm") RegistrationForm regform, BindingResult result,
@@ -65,24 +62,19 @@ public class MainController {
 
 		return "redirect:dashboard.html";
 	}
-	
-	
+
 	@RequestMapping(value = "/login.html", method = RequestMethod.POST)
-	public String login() throws Exception {		
+	public String login() throws Exception {
 		return "login";
 	}
-
 
 	@RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
 	public String dashboard(@AuthenticationPrincipal User user, ModelMap map) {
 		UserDetails userDetails = userManager.loadUserByUsername(user.getEmail());
-		map.addAttribute("user", (User)userDetails);
+		map.addAttribute("user", (User) userDetails);
 		return "/dashboard";
 	}
 
-	
-
-	
 	@RequestMapping(value = "/uploadimg.html", params = { "userid", "image_type" }, method = RequestMethod.POST)
 	public String imageUpload(@RequestParam("file") MultipartFile image, @RequestParam("userid") String userId,
 			@RequestParam("image_type") String profile_pic, RedirectAttributes redirectAttributes) {
@@ -97,7 +89,6 @@ public class MainController {
 		return "redirect:dashboard.html";
 	}
 
-	
 	@RequestMapping(value = "/image/{userid}/{albumid}/{imageid:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Resource> getImage(@PathVariable("albumid") String albumId,
 			@PathVariable("imageid") String imageId, @PathVariable("userid") String userId) {
@@ -111,6 +102,5 @@ public class MainController {
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).header(HttpHeaders.CONTENT_DISPOSITION, "Error").body(null);
 	}
-	
 
 }

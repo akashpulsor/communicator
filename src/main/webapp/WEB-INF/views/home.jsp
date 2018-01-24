@@ -1,25 +1,20 @@
 <%@ include file="common/header.jspf"%>
-<nav class="navbar navbar-toggleable-md navbar-light-blue bg-faded">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-	<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-	Communicator</header>
-	
-  </div>  
-</nav>
 
 
-	<div class="container">
-		<form:form method="POST" action="register.html" modelAttribute="registrationForm" class="form-signin">
+<%@ include file="common/navigation.jspf" %>  
+
+
+	<div class="container" >
+		<form:form method="POST"  action="register.html" modelAttribute="registrationForm" class="form-control">
              <table>
                 <tr>
                 	
-                    <td><form:label path="name">Name</form:label></td>
-                    <td><form:input path="name"/></td>
+                    <td><form:label path="name" >Name</form:label></td>
+                    <td><form:input path="name" /></td>
                 </tr>
                 <tr>
-                    <td><form:label path="email">Email</form:label></td>
-                    <td><form:input path="email"/></td>
+                    <td><form:label path="email"  >Email</form:label></td>
+                    <td><form:input path="email"  /></td>
                 </tr>
                 
                 <tr>
