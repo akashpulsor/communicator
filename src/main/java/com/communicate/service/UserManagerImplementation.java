@@ -33,7 +33,7 @@ import com.communicate.utils.Utils;
 import com.google.common.collect.Sets;
 
 @Service
-public class UserManagerImplementation implements UserManager, UserDetailsService {
+public class UserManagerImplementation implements UserManager {
 
 	private static final Logger logger = Logger.getLogger( UserManagerImplementation.class );
 	
@@ -71,21 +71,6 @@ public class UserManagerImplementation implements UserManager, UserDetailsServic
 		return user;
 	}
 
-	@SuppressWarnings("deprecation")
-	@Override
-	public User authenticateUser( String userName, String password ) throws Exception {
-		// TODO Auto-generated method stub
-		Optional<User> optionalUser = userDao.findByEmailIgnoreCase(userName);
-
-		optionalUser.
-		orElseThrow(() -> new UsernameNotFoundException( "User Name not found"));
-		User user = optionalUser.get(); 
-		if( user.getPassword().equals(password) ){
-			return user;
-		}
-		
-		return null;
-	}
 	
 	public User storeImage( String userId, MultipartFile image, boolean profilePic ) {
 		// Validate File

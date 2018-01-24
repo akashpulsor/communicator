@@ -64,18 +64,21 @@
         
         <div>
      
-        	<form:form method="POST" action="login.html" modelAttribute="loginForm">
+        	<form method="POST" action="login.html">
 	             <table>
 	                 <tr>
-	                 	<td><form:label path="login">Mobile/Email</form:label></td>
-	                	 <td><form:input path="login"/></td>
+	                 	<td><label >Mobile/Email</label></td>
+	                	 <td><input type='text' class="form-control" name='login' value=''></td>
 	                	 
 	                </tr>
 	                
 	                <tr>
 	                	
-	                	<td><form:label path="password">Password</form:label></td>
-	                	<td><form:password path="password"/></td>
+	                	<td><label>Password</label></td>
+	                	<td>
+	                		<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+	                	</td>
+	                	
 	                </tr> 
 	                
 	                 <tr>
@@ -83,6 +86,6 @@
 	                    <td><input type="submit" value="Login"/></td>
 	                </tr>
 	            </table>
-        	</form:form>
+        	</form>
         </div>
 <%@ include file="common/footer.jspf"%>

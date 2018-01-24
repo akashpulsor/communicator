@@ -18,8 +18,6 @@ public interface UserRepository extends  Repository<User, Long> {
 	
 	Optional<User> findById(String id);
 	
-	Optional<User> findByMobileNumber(String number);
-
-	//User authenticateUser(String UserName,String Passowrd) throws AuthenticationException;	
+	Optional<User> findByMobileNumber(String number);	
 
 }

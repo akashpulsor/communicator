@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("com.communicate.dao")
 @EntityScan({"com.communicate.model"})
-//@EnableConfigurationProperties(StorageProperties.class)
 @EnableAutoConfiguration(exclude={MultipartAutoConfiguration.class})
 public class AppConfig {
 	private static final Logger logger = Logger.getLogger(AppConfig.class);
@@ -34,23 +33,7 @@ public class AppConfig {
 	
 	
 	
-	@Bean
-	public SavedRequestAwareAuthenticationSuccessHandler successHandler() {
-	    SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
-	    successHandler.setTargetUrlParameter("/web/dashboard.html");
-	    successHandler.setAlwaysUseDefaultTargetUrl(true);
-	    successHandler.setUseReferer(true);
-	    return successHandler;
-	}
-	
-	
-	
-	@Bean
-	public SimpleUrlLogoutSuccessHandler logOutHandler() {
-		SimpleUrlLogoutSuccessHandler successHandler = new SimpleUrlLogoutSuccessHandler();
-	    successHandler.setTargetUrlParameter("/web/home.html");
-	    return successHandler;
-	}
+
 	
  
 }

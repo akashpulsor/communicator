@@ -47,13 +47,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	    public CommonsMultipartResolver getResolver() throws IOException{
 	        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 	        
-	        
-	         
-	        //Set the maximum allowed size (in bytes) for each individual file.
 	        resolver.setMaxUploadSizePerFile(5242880);
 	        resolver.setDefaultEncoding("utf-8");//5MB
-	         
-	        //You may also set other available properties.
 	         
 	        return resolver;
 	    }
@@ -67,6 +62,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver; 
 	}
+	
+	
 	// Config UTF-8 Encoding.
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -87,15 +84,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		.resourceChain(false);
 	}
 	
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		 
-		      registry.addViewController("/home.html");
-		      registry.addViewController("/register.html");
-		      registry.addViewController("/login.html");
-		      registry.addViewController("/uploadimg.html");
-		      
-	}
+	
 	// Equivalent for <mvc:default-servlet-handler/> tag
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
