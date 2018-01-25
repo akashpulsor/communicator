@@ -1,10 +1,26 @@
 <%@ include file="common/header.jspf"%>
 
 
-<%@ include file="common/navigation.jspf" %>  
+ <div class="col-sm-6 pull-right" id="navbarSupportedContent"> 		 
+ 				<form method="POST" action="login.html">	 	
+    				<div class="col-sm-5" >
+    					<input type='text' class="form-control" name='login' value='' placeholder="Email/password" required>
+    				</div>
+    				<div class="col-sm-5">
+    					<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+    					<input type="hidden" name = "${_csrf.parameterName} "value="${_csrf.token}"/>
+    				</div>
+    				<span class="input-group-btn"><button class="btn  btn-success">Login</button></span>
+<!--     				<input type="submit"  class="col-sm-2 "/> -->
+        		</form>
+    		
+ </div>
+    	
+<%@ include file="common/headerBoundary.jspf"%>
+ 	
 
 
-	<div class="container" >
+
 		<form:form method="POST"  action="register.html" modelAttribute="registrationForm" class="form-control">
              <table>
                 <tr>
@@ -54,33 +70,10 @@
                 </tr>
             </table>
         </form:form>
-	</div>
+
 	
         
         <div>
      
-        	<form method="POST" action="login.html">
-	             <table>
-	                 <tr>
-	                 	<td><label >Mobile/Email</label></td>
-	                	 <td><input type='text' class="form-control" name='login' value=''></td>
-	                	 
-	                </tr>
-	                
-	                <tr>
-	                	
-	                	<td><label>Password</label></td>
-	                	<td>
-	                		<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
-	                	</td>
-	                	
-	                </tr> 
-	                
-	                 <tr>
-	                 	<td><input type="hidden" name = "${_csrf.parameterName} "value="${_csrf.token}"/></td>
-	                    <td><input type="submit" value="Login"/></td>
-	                </tr>
-	            </table>
-        	</form>
-        </div>
+        	        </div>
 <%@ include file="common/footer.jspf"%>

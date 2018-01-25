@@ -1,11 +1,14 @@
 <%@page import="com.communicate.model.User"%>
 <%@ include file="common/header.jspf"%>
-<%@ include file="common/navigation.jspf"%>
+<div class="col-sm-5 pull-right" >
+<a href="<c:url value="/logout" />" class="pull-right" >Logout</a>
+</div>
 
+<%@ include file="common/headerBoundary.jspf"%>
 
 <p>Dashboard</p>
 <div class="container">
-<a href="<c:url value="/logout" />">Logout</a>
+
 <form:form method="POST" action =  "uploadimg.html"  modelAttribute="user"
     enctype="multipart/form-data">
 
