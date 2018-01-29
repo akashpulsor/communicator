@@ -124,9 +124,11 @@
 			
 			   <div class="form-group">
 			   		<form:label path="sexualInterest" class = "control-label"> Date Of Birth</form:label>
-			   		<div class="input-append date form_datetime">
-			   			<input size="16" type="text" value="" placeholder="MM/DD/YYY" readonly>
-    					<span class="add-on"><i class="icon-th"></i></span>
+			   		<div class="input-group date">
+		   			    <input type="text" class="form-control" value="12-02-2012">
+   						<div class="input-group-addon">
+       						<span class="glyphicon glyphicon-th"></span>
+   						</div>
 			   		</div>
 
 			   		
