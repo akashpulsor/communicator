@@ -20,10 +20,18 @@ public class RegistrationForm  {
     @Size(min=6, max=30)
 	private String password;
 	
+	@NotNull(message = "Please confirm password")
+    @Size(min=6, max=30)
+	private String confirmPassword;
+	
 	@NotNull
     @Size(min=5, max=30)
-	private String name;
-	
+	private String firstName;
+
+	@NotNull
+    @Size(min=5, max=30)
+	private String lastName;
+
 	@Email(message = "Email should be valid")
 	private String email;
 	
@@ -59,14 +67,7 @@ public class RegistrationForm  {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -149,6 +150,48 @@ public class RegistrationForm  {
 	 */
 	public void setRoles(String roles) {
 		this.roles = roles;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	/**
+	 * @return the confirmPassword
+	 */
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	/**
+	 * @param confirmPassword the confirmPassword to set
+	 */
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 	
 }

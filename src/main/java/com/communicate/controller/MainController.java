@@ -55,7 +55,7 @@ public class MainController {
 			return "/error";
 		}
 
-		logger.info("Recieved registration form " + regform.getName());
+		
 		User user = userManager.createUser(regform);
 		securityService.autologin(user.getEmail(), user.getPassword());
 		redirectAttributes.addFlashAttribute("user", user);

@@ -1,8 +1,11 @@
 <%@page import="com.communicate.model.User"%>
 <%@ include file="common/header.jspf"%>
 <div class="col-sm-5 pull-right" >
-<a href="<c:url value="/logout" />" class="pull-right" >Logout</a>
+
+	<a href="<c:url value="/logout" />" class="pull-right" >Logout</a>
 </div>
+
+
 
 <%@ include file="common/headerBoundary.jspf"%>
 

@@ -57,7 +57,7 @@ public class UserManagerImplementation implements UserManager {
 	public User createUser(RegistrationForm regForm) throws Exception {
 		User user = new User();
 		user.setEmail(regForm.getEmail());
-		user.setName(regForm.getName());
+		user.setName(regForm.getFirstName()+"-"+regForm.getLastName());
 		user.setPassword(regForm.getPassword());
 		user.setMobileNumber(regForm.getMobileNumber());
 		user.setGender(regForm.getGender());
