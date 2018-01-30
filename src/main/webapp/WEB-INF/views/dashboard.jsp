@@ -1,11 +1,14 @@
-<%@page import="com.communicate.model.User"%>
+
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/headerBoundary.jspf"%>
 
 <div class="container">
     <div class="cm-profile">
+        <%-- <img align="left" class="cm-image-profile img-thumbnail img-fluid rounded float-left" src="image/${user.id}/${user.albumId}/${user.proflePicId}" alt="${user.name}"/> --%>
+        <div class="cmPc-block">
+        	<img align="left" class="img-responsive img-thumbnail rounded-circle" style="width:20%" src="image/${user.id}/${user.albumId}/${user.proflePicId}" alt="${user.name}"/>
+        </div>
         
-        <img align="left" class="cm-image-profile thumbnail" src="image/${user.id}/${user.albumId}/${user.proflePicId}" alt="${user.name}"/>
         <div class="cm-profile-text">
             <h1>${user.name}</h1>
         </div>
