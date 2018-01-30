@@ -1,20 +1,27 @@
 <%@ include file="common/header.jspf"%>
 
-
- <div class="col-sm-6 form-group pull-right" > 		 
- 				<form method="POST" action="login.html">	 	
-    				<div class="col-sm-5 form-group" >
-    					<input type="email"  class="form-control" name='login' value='' placeholder="Email/number" required>
-    				</div>
-    				<div class="col-sm-5 form-group">
-    					<input type="password"  class="form-control" id="password" name="password" placeholder="Enter Password" required>
-    					<input type="hidden" name = "${_csrf.parameterName} "value="${_csrf.token}"/>
-    				</div>
-    				<span class="input-group-btn"><button class="btn  btn-primary">Login</button></span>
-        		</form>
-    		
+ <div  class = "container-fluid pull-right">
+ <br>
+ 
+	<form class="form-inline" method="POST" action="login.html">
+		  <div class="form-group">
+		    
+		   <input class="form-control grid-float-breakpoint" name='login' value='' placeholder="Email/number" required>
+		  </div>
+		  <div class="form-group">
+		    <input class="form-control grid-float-breakpoint" type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+		  </div>
+		  
+		  
+		  <button class="btn  btn-primary" aria-label="right Align">Login</button>
+		  <div class="checkbox">
+		    <label><input type="checkbox" class="control-label"> Remember me</label>
+		  </div>
+	</form>
  </div>
-    	
+	    	
+
+
 <%@ include file="common/headerBoundary.jspf"%>
  	
 <div class = "container ">
@@ -96,7 +103,7 @@
    							<div class="form-inline row">
    								<div class = "radio">
    									<form:label path="sexualInterest" class = "fa"> 
-   										<form:radiobutton path="gender" class = "fa" value="F" required="true"/>
+   										<form:radiobutton path="sexualInterest" class = "fa" value="F" required="true"/>
    										Female
    									</form:label>
    								</div>
@@ -105,7 +112,7 @@
    							<div class="form-inline row">
    								<div class = "radio">
    									<form:label path="sexualInterest" class = "fa"> 
-   										<form:radiobutton path="gender" class = "fa" value="M" required="true"/>
+   										<form:radiobutton path="sexualInterest" class = "fa" value="M" required="true"/>
    										Male
    									</form:label>
    								</div>
@@ -114,7 +121,7 @@
    							<div class="form-inline row">
    								<div class = "radio">
    									<form:label path="sexualInterest" class = "fa"> 
-   										<form:radiobutton path="gender" class = "fa" value="O" required="true"/>
+   										<form:radiobutton path="sexualInterest" class = "fa" value="O" required="true"/>
    										Other
    									</form:label>
    								</div>
@@ -123,20 +130,26 @@
 			  </div>
 			
 			   <div class="form-group">
-			   		<form:label path="sexualInterest" class = "control-label"> Date Of Birth</form:label>
-			   		<div class="input-group date">
-		   			    <input type="text" class="form-control" value="12-02-2012">
+			   		<form:label path="birthDate" class = "control-label"> Date Of Birth</form:label>
+			   		<div class="input-group date" data-provide="datepicker-inline" >
+					 <form:input path="birthDate"   id ="datepicker" class="form-control" value="02/12/2012" data-date-format="mm/dd/yyyy" readonly="true"/>
    						<div class="input-group-addon">
        						<span class="glyphicon glyphicon-th"></span>
    						</div>
 			   		</div>
 
 			   		
-			   </div>			  
+			   </div>
+			   
+			   <div class="form-group">
+					<button class="btn btn-primary btn-lg btn-block" type="submit"> Register</button>			   		
+			   		
+			   </div>			  			  
 
 			</form:form>
 
 <%--
+
                 
                 <tr>
                 	<td><input type="hidden" name = "${_csrf.parameterName} "value="${_csrf.token}"/></td>

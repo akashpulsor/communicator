@@ -1,9 +1,6 @@
 <script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("jquery.min.js") %>'></script>
+<script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap.js") %>'></script>
 <script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap.min.js") %>'></script>
-<script type="text/javascript">
-    $(".form_datetime").datetimepicker({
-        format: "dd MM yyyy - hh:ii"
-    });
-</script>
+<script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap-datepicker.js") %>'></script>
 </body>
 </html>

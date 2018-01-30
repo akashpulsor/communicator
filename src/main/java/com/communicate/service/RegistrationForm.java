@@ -1,5 +1,7 @@
 package com.communicate.service;
 
+import java.util.Date;
+
 import javax.persistence.Convert;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -25,11 +27,11 @@ public class RegistrationForm  {
 	private String confirmPassword;
 	
 	@NotNull
-    @Size(min=5, max=30)
+    @Size(min=1)
 	private String firstName;
 
 	@NotNull
-    @Size(min=5, max=30)
+    @Size(min=1)
 	private String lastName;
 
 	@Email(message = "Email should be valid")
@@ -48,13 +50,9 @@ public class RegistrationForm  {
 	private String country;
 	
 	
-	private Long birthDate;
+	private String birthDate;
 	
 	private Gender sexualInterest;
-	
-	private String day ="28";
-	private String month = "01";
-	private String year = "1989";
 	
 	private String roles; 
 	
@@ -100,11 +98,7 @@ public class RegistrationForm  {
 		this.country = country;
 	}
 
-	public Long getBirthDate() {
-		String date = this.day +"/"+ this.month +"/"+ this.year; 
-		this.birthDate = new DateConveter().convertToDatabaseColumn(date);
-		return this.birthDate;
-	}
+	
 
 	public Gender getSexualInterest() {
 		return sexualInterest;
@@ -112,30 +106,6 @@ public class RegistrationForm  {
 
 	public void setSexualInterest(Gender sexualInterest) {
 		this.sexualInterest = sexualInterest;
-	}
-
-	public String getDay() {
-		return day;
-	}
-
-	public void setDay(String day) {
-		this.day = day;
-	}
-
-	public String getMonth() {
-		return month;
-	}
-
-	public void setMonth(String month) {
-		this.month = month;
-	}
-
-	public String getYear() {
-		return year;
-	}
-
-	public void setYear(String year) {
-		this.year = year;
 	}
 
 	/**
@@ -193,5 +163,21 @@ public class RegistrationForm  {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
+
+	/**
+	 * @return the birthDate
+	 */
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	/**
+	 * @param birthDate the birthDate to set
+	 */
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	
 	
 }

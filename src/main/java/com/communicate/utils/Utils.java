@@ -8,6 +8,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.communicate.Exception.StorageException;
@@ -70,6 +72,14 @@ public class Utils {
 			}
 			
 		};
+	}
+	
+	public static Long convertDateToEpochMillis(String arg0) {
+		// TODO Auto-generated method stub
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("mm/dd/yyyy");
+		DateTime dt = formatter.parseDateTime(arg0);
+		long temp = dt.getMillis();
+		return temp;
 	}
 
 }
