@@ -28,7 +28,7 @@
 	<nav class="navbar navbar-toggleable-md navbar-toggleable-sm navbar-light bg-faded">
      
   		<a class="navbar-brand" href="#">Communicator</a>
-  		 <div class="panel panel-default">
+
       <div class="collapse navbar-collapse " id="navbarSupportedContent" >
         
     

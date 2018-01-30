@@ -1,6 +1,18 @@
 <%@page import="com.communicate.model.User"%>
 <%@ include file="common/header.jspf"%>
-<div class="col-sm-5 pull-right" >
+<%@ include file="common/headerBoundary.jspf"%>
+
+<div class="container">
+    <div class="cm-profile">
+        
+        <img align="left" class="cm-image-profile thumbnail" src="image/${user.id}/${user.albumId}/${user.proflePicId}" alt="${user.name}"/>
+        <div class="cm-profile-text">
+            <h1>${user.name}</h1>
+        </div>
+    </div>
+</div> 
+
+<%-- <div class="col-sm-5 pull-right" >
 
 	<a href="<c:url value="/logout" />" class="pull-right" >Logout</a>
 </div>
@@ -52,5 +64,5 @@
 	                
 
 	            
-	</div>
+	</div> --%>
 <%@ include file="common/footer.jspf"%>
