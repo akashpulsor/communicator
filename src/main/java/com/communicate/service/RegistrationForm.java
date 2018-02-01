@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.communicate.model.Gender;
+import com.communicate.model.Role;
 import com.communicate.utils.DateConveter;
 import com.communicate.utils.GenderConverter;
 
@@ -54,7 +55,7 @@ public class RegistrationForm  {
 	
 	private Gender sexualInterest;
 	
-	private String roles; 
+	private Role roles; 
 	
 	// TODO date drop down  in UI
 	public String getPassword() {
@@ -111,14 +112,14 @@ public class RegistrationForm  {
 	/**
 	 * @return the roles
 	 */
-	public String getRoles() {
+	public Role getRoles() {
 		return roles;
 	}
 
 	/**
 	 * @param roles the roles to set
 	 */
-	public void setRoles(String roles) {
+	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
 

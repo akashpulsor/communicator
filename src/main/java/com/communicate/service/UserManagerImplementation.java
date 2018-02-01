@@ -63,7 +63,7 @@ public class UserManagerImplementation implements UserManager {
 		user.setGender(regForm.getGender());
 		user.setSexualInterest(regForm.getSexualInterest());
 		user.setBirthDate(Utils.convertDateToEpochMillis(regForm.getBirthDate()));
-		user.setRoles(Sets.newHashSet(roleRepository.findByRoleName(Role.ROLE_USER)));
+		user.setRoles(Sets.newHashSet(roleRepository.findByRoleName(regForm.getRoles())));
 		
 		logger.info("storing object to database" + user.toString() );
 		userDao.save(user);

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.communicate.model.Role;
 import com.communicate.model.User;
 import com.communicate.service.RegistrationForm;
 import com.communicate.service.SecurityServiceImplementation;
@@ -55,7 +56,7 @@ public class MainController {
 			return "/error";
 		}
 
-		
+		regform.setRoles(Role.ROLE_USER);
 		User user = userManager.createUser(regform);
 		securityService.autologin(user.getEmail(), user.getPassword());
 		redirectAttributes.addFlashAttribute("user", user);

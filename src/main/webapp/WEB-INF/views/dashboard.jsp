@@ -1,5 +1,21 @@
 
 <%@ include file="common/header.jspf"%>
+<div class="collapse navbar-collapse" id="navbarCollapse">
+<br>
+ <ul class="navbar-nav mr-auto pull-right" >
+        <!--  <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+         </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="<c:url value="/logout" />">Logout</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>  -->
+          </ul>
+ 
+  </div>
+  
 <%@ include file="common/headerBoundary.jspf"%>
 
 <div class="container">
