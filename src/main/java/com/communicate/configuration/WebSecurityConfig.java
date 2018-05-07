@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// TODO Auto-generated method stub
-		web.ignoring().antMatchers("/web/home.html","/resources/**");
+		web.ignoring().antMatchers("/web/home.html","/resources/**","/web/css/**");
 	}
 	
 	

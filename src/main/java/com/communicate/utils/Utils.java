@@ -7,15 +7,14 @@ import java.nio.file.Path;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.communicate.Exception.StorageException;
-
 public class Utils {
-	
+	private static final Logger logger = Logger.getLogger( Utils.class );
 	public static Long getEpochMillis() {
 		
 		return new DateTime().getMillis();
@@ -25,10 +24,12 @@ public class Utils {
 		
 		if ( ! existsDirectory( directoryPath ) ) {
 			try {
+				logger.info("Creating directory" + directoryPath);
 	            Files.createDirectories(directoryPath);
 	          
 	         }
 	        catch (IOException e) {
+	        	logger.error("Not able to create directory" + directoryPath + ","+ e);
 	            return false;
 	        }
 		}

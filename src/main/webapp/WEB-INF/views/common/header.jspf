@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Communicator</title>
 
     <!-- Bootstrap Core CSS -->
@@ -18,9 +18,18 @@
 	href='<%= org.webjars.AssetLocator.getWebJarPath("css/font-awesome.min.css") %>' type="text/css" >
 	<link rel='stylesheet' 
 	href='<%= org.webjars.AssetLocator.getWebJarPath("css/bootstrap-datepicker.css") %>' type="text/css" >
+	    
+    <link rel='stylesheet' 
+	href='<%= org.webjars.AssetLocator.getWebJarPath("css/font-awesome.min.css") %>' type="text/css" >
 	
-      
-    
+	<link rel='stylesheet'  href="/communicate/web/css/com.css" type="text/css" >
+	    
+
+	
+          <%-- <link  href='<%= org.webjars.AssetLocator.getWebJarPath("css/ripples.min.css") %>'
+        type="text/css" rel="stylesheet">
+        <link  href='<%= org.webjars.AssetLocator.getWebJarPath("css/material-wfont.min.css") %>'
+        type="text/css" rel="stylesheet">     --%>
 </head>
 <body  class="bg-light " >
 	

@@ -18,32 +18,16 @@
   
 <%@ include file="common/headerBoundary.jspf"%>
 
-<div class="container">
-    <div class="cm-profile">
-        <%-- <img align="left" class="cm-image-profile img-thumbnail img-fluid rounded float-left" src="image/${user.id}/${user.albumId}/${user.proflePicId}" alt="${user.name}"/> --%>
-        <div class="cmPc-block">
-        	<img align="left" class="img-responsive img-thumbnail rounded-circle" style="width:20%" src="image/${user.id}/${user.albumId}/${user.proflePicId}" alt="${user.name}"/>
-        </div>
-        
-        <div class="cm-profile-text">
-            <h1>${user.name}</h1>
-        </div>
-    </div>
-</div> 
 
-<%-- <div class="col-sm-5 pull-right" >
-
-	<a href="<c:url value="/logout" />" class="pull-right" >Logout</a>
-</div>
-
-
-
-<%@ include file="common/headerBoundary.jspf"%>
-
-<p>Dashboard</p>
 <div class="container">
 
-<form:form method="POST" action =  "uploadimg.html"  modelAttribute="user"
+	<div class="row">
+	
+				<%-- <%@ include file="distributorForm.jspf"%> --%>
+				<%@ include file="theatre.jspf"%>
+	</div>
+	
+<%-- <form:form method="POST" action =  "uploadimg.html"  modelAttribute="user"
     enctype="multipart/form-data">
 
       <table>
@@ -70,18 +54,6 @@
         </tr>
         
      </table>
-    
-
-     
-    
-    
-    
-
 </form:form>
-			            
-	                
-	                
-
-	            
-	</div> --%>
-<%@ include file="common/footer.jspf"%>
+ --%>			            
+<%@ include file="common/footer.jspf"%>	           

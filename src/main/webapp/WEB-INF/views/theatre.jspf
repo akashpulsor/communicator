@@ -1,0 +1,46 @@
+<div class="row well"></div>
+
+<div class="row">
+	<div class="col-md-auto  col-xs-auto col-sm-auto col-lg-6">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Movie</th>
+					<th>Download</th>
+					<th>Collection</th>
+					<th>Profit</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Mark</td>
+					<td>Edit</td>
+					<td>Preview</td>
+					<td>Publish</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-md-auto  col-xs-auto col-sm-auto col-lg-6">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Seat No.</th>
+					<th>Device Id</th>
+					<th>Movie</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Mark</td>
+					<td>Edit</td>
+					<td>Preview</td>
+				</tr>
+			</tbody>
+		</table>
+		<button class="btn btn-primary btn-lg btn-block" type="submit">Play</button>
+	</div>
+
+
+</div>

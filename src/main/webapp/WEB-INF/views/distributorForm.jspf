@@ -1,0 +1,162 @@
+<div class="col-md-auto  col-xs-auto col-sm-auto col-lg-6">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Movie</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Mark</td>
+				<td><button class="btn btn-primary btn-block" type="button">
+						Edit</button></td>
+				<td><button class="btn btn-primary btn-block" type="button">
+						Preview</button></td>
+				<td><button class="btn btn-primary btn-block" type="button">
+						Publish</button></td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Movie</th>
+				<th>Collection</th>
+				<th>Downloads</th>
+				<th>Profit</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Mark</td>
+				<td>Edit</td>
+			</tr>
+
+		</tbody>
+	</table>
+</div>
+
+
+
+<div class="col-md-auto  col-xs-auto col-sm-auto col-lg-6">
+
+	<div class="row">
+
+		<form method="POST" action="uloadmovie.html" id="distributorForm"
+			enctype="multipart/form-data">
+
+			<div class="form-group ">
+				<div class="form-inline">
+					<input type="text" class="form-control" placeholder="Movie Name" />
+				</div>
+
+			</div>
+
+			<div class="form-group ">
+				<textarea class="form-control" placeholder="Description"></textarea>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group after-add-more" style="margin-top: 10px">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-primary dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Designation <span class="caret"></span>
+						</button>
+
+						<ul class="dropdown-menu">
+							<li><a href="#">HTML</a></li>
+							<li><a href="#">CSS</a></li>
+							<li><a href="#">JavaScript</a></li>
+						</ul>
+
+
+					</div>
+
+					<input type="text" name="addmore[]" class="form-control"
+						placeholder="Star Cast">
+					<div class="input-group-btn" id="profs">
+						<span class="input-group-text"><label
+							class="btn-bs-file btn btn-primary"> Picture <input
+								type="file" style="display: none;" />
+						</label>
+							<button class="btn btn-primary btn-responsive add-more"
+								type="button">
+								<i class="glyphicon glyphicon-plus"></i> Add
+							</button> </span>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="copy hide form-group">
+				<div class="control-group input-group" style="margin-top: 10px">
+
+
+					<div class="input-group-btn">
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button"
+								id="dropdownMenuButton" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">
+								Designation <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">HTML</a></li>
+								<li><a href="#">CSS</a></li>
+								<li><a href="#">JavaScript</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<input type="text" name="addmore[]" class="form-control"
+						placeholder="Star Cast">
+
+					<div class="input-group-btn">
+						<span class="input-group-text"><label
+							class="btn-bs-file btn btn-primary"> Picture <input
+								type="file" style="display: none;" />
+						</label>
+							<button class="btn btn-danger remove" type="button">
+								<i class="glyphicon glyphicon-remove"></i> Remove
+							</button> </span>
+					</div>
+
+				</div>
+			</div>
+
+
+			<div class="form-group ">
+				<label class="control-label"> Release Date</label>
+				<div class="input-group date" data-provide="datepicker-inline">
+					<input id="datepicker" class="form-control" value="02/12/2012"
+						data-date-format="mm/dd/yyyy" />
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-th"></span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="form-group input-group ">
+				<label class="input-group-btn"> <span
+					class="btn btn-primary"> Select Movie <input type="file"
+						style="display: none;" multiple />
+				</span>
+				</label> <input type="text" class="form-control" readonly="">
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-primary btn-lg btn-block" type="submit">Upload
+					Movie</button>
+
+			</div>
+
+		</form>
+	</div>
+</div>

@@ -1,6 +1,51 @@
-<script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("jquery.min.js") %>'></script>
-<script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap.js") %>'></script>
-<script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap.min.js") %>'></script>
-<script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap-datepicker.js") %>'></script>
+
+<script type='text/javascript'
+	src='<%=org.webjars.AssetLocator.getWebJarPath("js/bootstrap.js")%>'></script>
+<script type='text/javascript'
+	src='<%=org.webjars.AssetLocator.getWebJarPath("jquery.min.js")%>'></script>
+<script type='text/javascript'
+	src='<%=org.webjars.AssetLocator.getWebJarPath("js/bootstrap.min.js")%>'></script>
+<script type='text/javascript'
+	src='<%=org.webjars.AssetLocator.getWebJarPath("js/bootstrap-datepicker.js")%>'></script>
+<script type='text/javascript'
+	src='<%=org.webjars.AssetLocator.getWebJarPath("js/bootstrap-datepicker.js")%>'></script>
+<script type="text/javascript"
+	src='<%=org.webjars.AssetLocator.getWebJarPath("js/mdb.min.js")%>'></script>
+<script type='text/javascript' >
+$(document).ready(function() {
+
+
+    $(".add-more").click(function(){ 
+        var html = $(".copy").html();
+        $(".after-add-more").after(html);
+    });
+
+
+    $("body").on("click",".remove",function(){ 
+        $(this).parents(".control-group").remove();
+    });
+
+
+  });
+</script>
+ <script>
+ $(document).ready(function () {
+	  $(window).scroll(function () {
+	    if ($(this).scrollTop() > 100) {
+	      $('.scroll-top').fadeIn();
+	    } else {
+	      $('.scroll-top').fadeOut();
+	    }
+	  });
+
+	  $('.scroll-top').click(function () {
+	    $("html, body").animate({
+	      scrollTop: 0
+	    }, 100);
+	      return false;
+	  });
+
+	});
+ </script>
 </body>
 </html>

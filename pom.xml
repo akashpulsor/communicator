@@ -50,6 +50,13 @@
 			<artifactId>bootstrap</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+	<!-- 	<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>4.0.0-alpha</version>
+		</dependency>
+	 -->	
 		
 		<dependency>
 	    	<groupId>org.webjars</groupId>
@@ -57,7 +64,13 @@
 	    	<version>1.6.4</version>
 		</dependency>
 		
-
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootcards -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>bootcards</artifactId>
+		    <version>1.1.2</version>
+		</dependency>
+			
 
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -280,7 +293,7 @@
 			<artifactId>joda-time</artifactId>
 			<version>${jodatime.version}</version>
 		</dependency>
-		
+
 
 	</dependencies>
 

@@ -17,6 +17,7 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		appStart.setUpRoles();
 		appStart.checkInitialSetup();
+		appStart.contentNetwork();
 	}
 
 }

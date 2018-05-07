@@ -30,7 +30,9 @@ public class ImageStorageService implements StorageService {
 	
 	@Override
 	public void init() {
+		logger.info("Creating Image directory if not exits");
 		Utils.createDirectory( rootLocation );
+		
 	}
 
 	@Override
