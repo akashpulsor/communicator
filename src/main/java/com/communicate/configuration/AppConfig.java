@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
  
 
 
@@ -19,7 +21,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("com.communicate.dao")
 @EntityScan({"com.communicate.model"})
-//@EnableConfigurationProperties(StorageProperties.class)
 @EnableAutoConfiguration(exclude={MultipartAutoConfiguration.class})
 public class AppConfig {
 	private static final Logger logger = Logger.getLogger(AppConfig.class);
@@ -33,10 +34,6 @@ public class AppConfig {
 	
 	
 
-	
-	
-	
-	
 	
  
 }

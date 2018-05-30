@@ -15,7 +15,7 @@ public class CommunicatorWebAppInitializer extends AbstractAnnotationConfigDispa
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[] {AppConfig.class,HibernateConfig.class};
+		return new Class[] {AppConfig.class,HibernateConfig.class,WebSecurityConfig.class};
 	}
 
 	@Override

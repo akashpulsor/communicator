@@ -1,11 +1,14 @@
 package com.communicate.service;
 
+import java.util.Date;
+
 import javax.persistence.Convert;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.communicate.model.Gender;
+import com.communicate.model.Role;
 import com.communicate.utils.DateConveter;
 import com.communicate.utils.GenderConverter;
 
@@ -20,10 +23,18 @@ public class RegistrationForm  {
     @Size(min=6, max=30)
 	private String password;
 	
-	@NotNull
-    @Size(min=5, max=30)
-	private String name;
+	@NotNull(message = "Please confirm password")
+    @Size(min=6, max=30)
+	private String confirmPassword;
 	
+	@NotNull
+    @Size(min=1)
+	private String firstName;
+
+	@NotNull
+    @Size(min=1)
+	private String lastName;
+
 	@Email(message = "Email should be valid")
 	private String email;
 	
@@ -40,13 +51,11 @@ public class RegistrationForm  {
 	private String country;
 	
 	
-	private Long birthDate;
+	private String birthDate;
 	
 	private Gender sexualInterest;
 	
-	private String day ="28";
-	private String month = "01";
-	private String year = "1989";
+	private Role roles; 
 	
 	// TODO date drop down  in UI
 	public String getPassword() {
@@ -57,14 +66,7 @@ public class RegistrationForm  {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -97,11 +99,7 @@ public class RegistrationForm  {
 		this.country = country;
 	}
 
-	public Long getBirthDate() {
-		String date = this.day +"/"+ this.month +"/"+ this.year; 
-		this.birthDate = new DateConveter().convertToDatabaseColumn(date);
-		return this.birthDate;
-	}
+	
 
 	public Gender getSexualInterest() {
 		return sexualInterest;
@@ -111,28 +109,76 @@ public class RegistrationForm  {
 		this.sexualInterest = sexualInterest;
 	}
 
-	public String getDay() {
-		return day;
+	/**
+	 * @return the roles
+	 */
+	public Role getRoles() {
+		return roles;
 	}
 
-	public void setDay(String day) {
-		this.day = day;
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(Role roles) {
+		this.roles = roles;
 	}
 
-	public String getMonth() {
-		return month;
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setMonth(String month) {
-		this.month = month;
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getYear() {
-		return year;
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setYear(String year) {
-		this.year = year;
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
+
+	/**
+	 * @return the confirmPassword
+	 */
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	/**
+	 * @param confirmPassword the confirmPassword to set
+	 */
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	/**
+	 * @return the birthDate
+	 */
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	/**
+	 * @param birthDate the birthDate to set
+	 */
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	
 	
 }

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -46,13 +47,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	    public CommonsMultipartResolver getResolver() throws IOException{
 	        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 	        
-	        
-	         
-	        //Set the maximum allowed size (in bytes) for each individual file.
 	        resolver.setMaxUploadSizePerFile(5242880);
 	        resolver.setDefaultEncoding("utf-8");//5MB
-	         
-	        //You may also set other available properties.
 	         
 	        return resolver;
 	    }
@@ -66,6 +62,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver; 
 	}
+	
+	
 	// Config UTF-8 Encoding.
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -84,7 +82,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/web/webjars/**").
 		addResourceLocations("classpath:/META-INF/resources/webjars/")
 		.resourceChain(false);
+		
+		registry.addResourceHandler("/web/css/**").
+		addResourceLocations("classpath:/resources/static/css/")
+		.resourceChain(false);
+
 	}
+	
 	
 	// Equivalent for <mvc:default-servlet-handler/> tag
 	@Override

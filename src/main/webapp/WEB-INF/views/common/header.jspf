@@ -4,6 +4,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Communicator</title>
 
     <!-- Bootstrap Core CSS -->
@@ -14,7 +16,32 @@
     <!-- Custom Fonts -->
     <link rel='stylesheet' 
 	href='<%= org.webjars.AssetLocator.getWebJarPath("css/font-awesome.min.css") %>' type="text/css" >
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">  
-    
+	<link rel='stylesheet' 
+	href='<%= org.webjars.AssetLocator.getWebJarPath("css/bootstrap-datepicker.css") %>' type="text/css" >
+	    
+    <link rel='stylesheet' 
+	href='<%= org.webjars.AssetLocator.getWebJarPath("css/font-awesome.min.css") %>' type="text/css" >
+	
+	<link rel='stylesheet'  href="/communicate/web/css/com.css" type="text/css" >
+	    
+
+	
+          <%-- <link  href='<%= org.webjars.AssetLocator.getWebJarPath("css/ripples.min.css") %>'
+        type="text/css" rel="stylesheet">
+        <link  href='<%= org.webjars.AssetLocator.getWebJarPath("css/material-wfont.min.css") %>'
+        type="text/css" rel="stylesheet">     --%>
 </head>
-<body  data-gr-c-s-loaded="true">
+<body  class="bg-light " >
+	
+
+	<nav class="navbar navbar-toggleable-md navbar-toggleable-sm navbar-light bg-faded">
+     
+  		<a class="navbar-brand" href="#">Communicator</a>
+
+      <div class="collapse navbar-collapse " id="navbarSupportedContent" >
+        
+    
+    
+    
+    
+	

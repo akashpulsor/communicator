@@ -1,22 +1,22 @@
 package com.communicate.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.joda.time.DateTime;
 
 import com.communicate.utils.Utils;
 
@@ -42,13 +42,13 @@ public class User extends AbstractEntity implements Serializable {
 	private String name;
 	
 	@Email(message = "Email should be valid")
-	@Column
+	@Column(unique=true, nullable=false)
 	private String email;
 	
 	
 	@NotNull
     @Size(min=10, max=10)
-	@Column
+	@Column(unique=true, nullable=false)
 	private String mobileNumber;
 	
 	@Enumerated(EnumType.STRING)
@@ -72,6 +72,35 @@ public class User extends AbstractEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Gender sexualInterest;
 	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns =
+    @JoinColumn(name = "userId", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "roleId"
+    		,referencedColumnName = "roleId" )
+    )
+	private Set<Roles> roles;
+	
+	
+	public User(User users) {
+		this.setId(users.getId());
+		this.address = users.getAddress();
+		this.password = users.getPassword();
+		this.name = users.getName();
+		this.email = users.getEmail();
+		this.mobileNumber = users.getMobileNumber();
+		this.gender = users.getGender();
+		this.country = users.getCountry();
+		this.birthDate = users.getBirthDate();
+		this.albumId = users.getAlbumId();
+		this.proflePicId = users.getProflePicId();
+		this.joinDate = users.getJoinDate();
+		this.sexualInterest = users.getSexualInterest();
+		this.roles = users.getRoles();
+	}
+	
+	public User() {
+		
+	}
+
 	/**
 	@OneToMany
 	@JoinColumn(name = "id")
@@ -237,6 +266,20 @@ public class User extends AbstractEntity implements Serializable {
 	 */
 	public void setProflePicId(String proflePicId) {
 		this.proflePicId = proflePicId;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	public Set<Roles> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(Set<Roles> roles) {
+		this.roles = roles;
 	}
 
 	@Override

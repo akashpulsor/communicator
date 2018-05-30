@@ -4,28 +4,37 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.joda.time.DateTime;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
-import com.communicate.Exception.StorageException;
+import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class Utils {
-	
+	private static final Logger logger = Logger.getLogger( Utils.class );
 	public static Long getEpochMillis() {
 		
 		return new DateTime().getMillis();
 	}
 	
-	public static void createDirectory (  Path directoryPath  ) {
+	public static Boolean  createDirectory (  Path directoryPath  ) {
 		
 		if ( ! existsDirectory( directoryPath ) ) {
 			try {
+				logger.info("Creating directory" + directoryPath);
 	            Files.createDirectories(directoryPath);
-	           
-	        }
+	          
+	         }
 	        catch (IOException e) {
-	            throw new StorageException("Could not initialize storage", e);
+	        	logger.error("Not able to create directory" + directoryPath + ","+ e);
+	            return false;
 	        }
 		}
+		
+		return true;
 		
 	}
 	
@@ -33,7 +42,45 @@ public class Utils {
 		return Files.exists(directoryPath);
 	}
 	
+	public static boolean isValidEmailAddress(String email) {
+		   boolean result = true;
+		   try {
+		      InternetAddress emailAddr = new InternetAddress(email);
+		      emailAddr.validate();
+		   } catch (AddressException ex) {
+		      result = false;
+		   }
+		   return result;
+	}
 	
+	public static   PasswordEncoder getPasswordEncoder() {
+		
+		return new PasswordEncoder() {
+
+			@Override
+			public String encode(CharSequence rawPassword) {
+				// TODO Auto-generated method stub
+				return rawPassword.toString();
+			}
+
+			@Override
+			public boolean matches(CharSequence rawPassword, String encodedPassword) {
+				// TODO Auto-generated method stub
+				if( rawPassword.equals(encodedPassword) ) {
+					return true;
+				}
+				return false;
+			}
+			
+		};
+	}
 	
+	public static Long convertDateToEpochMillis(String arg0) {
+		// TODO Auto-generated method stub
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("mm/dd/yyyy");
+		DateTime dt = formatter.parseDateTime(arg0);
+		long temp = dt.getMillis();
+		return temp;
+	}
 
 }
