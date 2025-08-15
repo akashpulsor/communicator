@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: appdb
+    ports: ["5432:5432"]
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./migrations.sql:/docker-entrypoint-initdb.d/migrations.sql:ro
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports: ["8000:8000"]
+    volumes:
+      - ./app:/app/app
+      - ./uploads:/app/uploads
+      - ./storage:/app/storage
+
+volumes:
+  db_data:
