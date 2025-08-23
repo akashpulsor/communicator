@@ -6,6 +6,8 @@ class SignupReq(BaseModel):
     email: EmailStr
     password: str
     name: Optional[str] = None
+    phone: str
+    country_code: str
 
 class SigninReq(BaseModel):
     email: EmailStr

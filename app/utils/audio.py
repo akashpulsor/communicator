@@ -2,7 +2,7 @@ import base64
 
 def pcm16_from_base64(b64: str) -> bytes:
     return base64.b64decode(b64)
-
+ 
 def base64_from_pcm16(data: bytes) -> str:
     return base64.b64encode(data).decode("ascii")
 

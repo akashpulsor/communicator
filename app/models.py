@@ -1,59 +1,95 @@
-from sqlalchemy.dialects.postgresql import UUID, JSONB
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Text, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Text, DateTime, Enum, Float, Integer, JSON, ForeignKey
+from sqlalchemy.dialects.mysql import CHAR
+from sqlalchemy.sql import func
+from app.database import Base
 import uuid
-from .database import Base
+import enum
+class SessionMode(enum.Enum):
+    chat = "chat"
+    pdf = "pdf"
+
+
+class MessageRole(enum.Enum):
+    user = "user"
+    assistant = "assistant"
+    system = "system"
+
+
+class AudioRole(enum.Enum):
+    user = "user"
+    assistant = "assistant"
+
 
 class User(Base):
     __tablename__ = "users"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    password_hash: Mapped[str] = mapped_column(String, nullable=False)
-    name: Mapped[str | None] = mapped_column(String)
+
+    id = Column(CHAR(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    email = Column(String(255), unique=True, nullable=False)  # ✅ fixed length
+    country_code = Column(String(10))
+    mobile = Column(String(20), unique=True)
+    password_hash = Column(Text, nullable=False)
+    name = Column(String(255))
+    created_at = Column(DateTime, default=func.now())
 
 class Session(Base):
     __tablename__ = "sessions"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"))
-    mode: Mapped[str] = mapped_column(String, nullable=False)
-    document_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), nullable=True)
-    chapter_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), nullable=True)
+
+    id = Column(CHAR(36), primary_key=True)
+    user_id = Column(CHAR(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    mode = Column(Enum(SessionMode), nullable=False)
+    document_id = Column(CHAR(36))
+    chapter_id = Column(CHAR(36))
+    started_at = Column(DateTime, default=func.now())
+    closed_at = Column(DateTime)
+
 
 class Message(Base):
     __tablename__ = "messages"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    session_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("sessions.id", ondelete="CASCADE"))
-    role: Mapped[str] = mapped_column(String, nullable=False)
-    text: Mapped[str | None] = mapped_column(Text)
-    stt_conf: Mapped[float | None] = mapped_column(Float)
-    llm_tokens: Mapped[int | None] = mapped_column(Integer)
+
+    id = Column(CHAR(36), primary_key=True)
+    session_id = Column(CHAR(36), ForeignKey("sessions.id", ondelete="CASCADE"))
+    role = Column(Enum(MessageRole), nullable=False)
+    text = Column(Text)
+    stt_conf = Column(Float)
+    llm_tokens = Column(Integer)
+    created_at = Column(DateTime, default=func.now())
+
 
 class AudioBlob(Base):
     __tablename__ = "audio_blobs"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    session_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("sessions.id", ondelete="CASCADE"))
-    role: Mapped[str] = mapped_column(String, nullable=False)
-    mime: Mapped[str | None] = mapped_column(String)
-    duration_ms: Mapped[int | None] = mapped_column(Integer)
-    url: Mapped[str | None] = mapped_column(Text)
+
+    id = Column(CHAR(36), primary_key=True)
+    session_id = Column(CHAR(36), ForeignKey("sessions.id", ondelete="CASCADE"))
+    role = Column(Enum(AudioRole), nullable=False)
+    mime = Column(String(100))
+    duration_ms = Column(Integer)
+    url = Column(Text)
+    created_at = Column(DateTime, default=func.now())
+
 
 class Document(Base):
     __tablename__ = "documents"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"))
-    name: Mapped[str | None] = mapped_column(String)
-    url: Mapped[str | None] = mapped_column(Text)
-    status: Mapped[str | None] = mapped_column(String)
+
+    id = Column(CHAR(36), primary_key=True)
+    user_id = Column(CHAR(36), ForeignKey("users.id", ondelete="CASCADE"))
+    name = Column(String(255))
+    url = Column(Text)
+    status = Column(String(50))
+    uploaded_at = Column(DateTime, default=func.now())
+
 
 class Chapter(Base):
     __tablename__ = "chapters"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    document_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id", ondelete="CASCADE"))
-    idx: Mapped[int | None] = mapped_column(Integer)
-    title: Mapped[str | None] = mapped_column(String)
-    text: Mapped[str | None] = mapped_column(Text)
+
+    id = Column(CHAR(36), primary_key=True)
+    document_id = Column(CHAR(36), ForeignKey("documents.id", ondelete="CASCADE"))
+    idx = Column(Integer)
+    title = Column(String(255))
+    text = Column(Text)
+
 
 class ChapterEmbedding(Base):
     __tablename__ = "chapter_embeddings"
-    chapter_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("chapters.id", ondelete="CASCADE"), primary_key=True)
-    embedding = mapped_column(JSONB)  # list[float]
+
+    chapter_id = Column(CHAR(36), ForeignKey("chapters.id", ondelete="CASCADE"), primary_key=True)
+    embedding = Column(JSON)

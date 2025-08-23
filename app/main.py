@@ -8,13 +8,17 @@ from .routers import documents as r_docs
 from .routers import sessions as r_sessions
 from .routers import messages as r_messages
 from .config import settings
+import asyncio
+import sys
 
+if sys.platform.startswith("win"):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 def create_app():
     app = FastAPI(title="Hinglish Voice Backend (Phi-3)", version="0.2.0")
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=["http://localhost:3000"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

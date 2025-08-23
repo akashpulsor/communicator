@@ -11,7 +11,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 def signup(payload: SignupReq, db: Session = Depends(get_db)):
     if db.query(User).filter(User.email == payload.email).first():
         raise HTTPException(status_code=400, detail="Email already exists")
-    u = User(email=payload.email, password_hash=hash_password(payload.password), name=payload.name)
+    u = User(email=payload.email, password_hash=hash_password(payload.password), name=payload.name, mobile=payload.phone, country_code=payload.country_code)
     db.add(u); db.commit(); db.refresh(u)
     access, refresh = create_access_refresh(str(u.id))
     return {"access_token": access, "refresh_token": refresh}

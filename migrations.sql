@@ -1,66 +1,82 @@
-CREATE DATABASE communicator CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS communicator
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
+-- USERS TABLE
 CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  email TEXT UNIQUE NOT NULL,
+  id CHAR(36) PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  country_code VARCHAR(10),
+  mobile VARCHAR(20) UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
-  name TEXT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  name VARCHAR(255),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- SESSIONS TABLE
 CREATE TABLE IF NOT EXISTS sessions (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  mode TEXT CHECK (mode IN ('chat','pdf')) NOT NULL,
-  document_id UUID,
-  chapter_id UUID,
-  started_at TIMESTAMPTZ DEFAULT now(),
-  closed_at TIMESTAMPTZ
+  id CHAR(36) PRIMARY KEY,
+  user_id CHAR(36) NOT NULL,
+  mode ENUM('chat','pdf') NOT NULL,
+  document_id CHAR(36),
+  chapter_id CHAR(36),
+  started_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  closed_at DATETIME,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- MESSAGES TABLE
 CREATE TABLE IF NOT EXISTS messages (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  session_id UUID REFERENCES sessions(id) ON DELETE CASCADE,
-  role TEXT CHECK (role IN ('user','assistant','system')) NOT NULL,
+  id CHAR(36) PRIMARY KEY,
+  session_id CHAR(36),
+  role ENUM('user','assistant','system') NOT NULL,
   text TEXT,
-  stt_conf REAL,
+  stt_conf FLOAT,
   llm_tokens INT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
 );
 
+-- AUDIO BLOBS TABLE
 CREATE TABLE IF NOT EXISTS audio_blobs (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  session_id UUID REFERENCES sessions(id) ON DELETE CASCADE,
-  role TEXT CHECK (role IN ('user','assistant')) NOT NULL,
-  mime TEXT,
+  id CHAR(36) PRIMARY KEY,
+  session_id CHAR(36),
+  role ENUM('user','assistant') NOT NULL,
+  mime VARCHAR(100),
   duration_ms INT,
   url TEXT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
 );
 
+-- DOCUMENTS TABLE
 CREATE TABLE IF NOT EXISTS documents (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  name TEXT,
+  id CHAR(36) PRIMARY KEY,
+  user_id CHAR(36),
+  name VARCHAR(255),
   url TEXT,
-  status TEXT,
-  uploaded_at TIMESTAMPTZ DEFAULT now()
+  status VARCHAR(50),
+  uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- CHAPTERS TABLE
 CREATE TABLE IF NOT EXISTS chapters (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  document_id UUID REFERENCES documents(id) ON DELETE CASCADE,
+  id CHAR(36) PRIMARY KEY,
+  document_id CHAR(36),
   idx INT,
-  title TEXT,
-  text TEXT
+  title VARCHAR(255),
+  text TEXT,
+  FOREIGN KEY (document_id) REFERENCES documents(id) ON DELETE CASCADE
 );
 
+-- CHAPTER EMBEDDINGS TABLE
 CREATE TABLE IF NOT EXISTS chapter_embeddings (
-  chapter_id UUID PRIMARY KEY REFERENCES chapters(id) ON DELETE CASCADE,
-  embedding JSONB
+  chapter_id CHAR(36) PRIMARY KEY,
+  embedding JSON,
+  FOREIGN KEY (chapter_id) REFERENCES chapters(id) ON DELETE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_messages_session ON messages(session_id);
-CREATE INDEX IF NOT EXISTS idx_chapters_doc ON chapters(document_id);
+-- INDEXES
+CREATE INDEX idx_messages_session ON messages(session_id);
+CREATE INDEX idx_chapters_doc ON chapters(document_id);

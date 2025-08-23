@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "FastAPI Debug",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "app.main:app",      // <- yahan tumhara entrypoint module
+        "--reload",
+        "--host", "0.0.0.0",
+        "--port", "8000"
+      ],
+      "jinja": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
